@@ -1,2 +1,2 @@
-# Product Backlog PB.md
-product backlog pb goes here
+# Product Backlog
+product backlog goes here
