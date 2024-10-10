@@ -4,4 +4,4 @@
 | Oshiya Brahmbhatt | A/B | XXXXXXXXX | placeholder | placeholder | placeholder |
 | Aditya Manjrekar | A/B | XXXXXXXXX | placeholder | placeholder | placeholder |
 | Sourish Dayalan | A/B | XXXXXXXXX | placeholder | placeholder | placeholder |
-| Melvin Gagarao | A/B | XXXXXXXXX | placeholder | placeholder | placeholder |
+| Melvin Gagarao | A | 216469637 | melving@my.yorku.ca | Discord | sparks1223 |
