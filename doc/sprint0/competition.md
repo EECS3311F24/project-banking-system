@@ -29,3 +29,5 @@ Our product has the same basic functionality as the two specified above, with a 
 - Allowing limited overdrafting
 - Managing multiple currency accounts
   - Allow conversion between currencies at current rate.
+
+By having these features, users are able to manage their finances easier through user-set automation, and flexible loan management features. It also allows features to finance as a group, and to handle multiple currencies.
