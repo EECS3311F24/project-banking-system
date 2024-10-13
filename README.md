@@ -15,7 +15,7 @@ To develop on this project, you need the following:
 
 ## Contribution
 We have the three main branches:
-1) master
+1) main
 2) dev
 3) QA (testing)
 
