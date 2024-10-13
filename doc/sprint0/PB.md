@@ -30,6 +30,7 @@ ________________________________________________________________________________
 
 Samantha – Young Professional (Persona 1)
 Needs: Manage personal finances, save for a condo, explore investment opportunities, and stay organized with subscriptions.
+
 What She Gets:
 - Automatic savings through micro-savings and personalized investment suggestions.
 - Subscription tracking and bill splitting for easy financial management with friends and family.
@@ -38,6 +39,7 @@ What She Gets:
 
 John – Small Business Owner (Persona 2)
 Needs: Manage multi-currency accounts, handle business expenses, and access flexible loan options for business growth.
+
 What He Gets:
 - Multi-currency account management for easy travel and business expenses abroad.
 - Access to flexible loan repayment schedules and loan health dashboards.
@@ -46,6 +48,7 @@ What He Gets:
 
 Emily – University Student (Persona 3)
 Needs: Track her monthly expenses, manage subscriptions, split bills with roommates, and improve her credit score.
+
 What She Gets:
 - Subscription management and bill splitting features to help manage shared expenses with her friends.
 - Notifications about upcoming bills and balance alerts to avoid overdraft fees.
