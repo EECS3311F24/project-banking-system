@@ -10,7 +10,7 @@ This project aims to simplify financial management by creating a user-friendly b
 To develop on this project, you need the following:
 - NodeJS (installation of other dependencies)
 - Angular CLI
-- Java (8)
+- Java (1.8)
 - MySQL
 - Coding Pack for Java
 
