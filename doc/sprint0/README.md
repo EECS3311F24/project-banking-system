@@ -12,6 +12,7 @@ To develop on this project, you need the following:
 - Angular CLI
 - Java (8)
 - MySQL
+- Coding Pack for Java
 
 ## Contribution
 We have the three main branches:
