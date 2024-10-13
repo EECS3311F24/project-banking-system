@@ -11,7 +11,7 @@ What She Gets:
 - Notifications for her balance and real-time fraud alerts for increased security.
 - Taking credit before receiving the pay check
 
-###John – Small Business Owner (Persona 2)
+### John – Small Business Owner (Persona 2)
 
 Needs: Manage multi-currency accounts, handle business expenses, and access flexible loan options for business growth.
 
