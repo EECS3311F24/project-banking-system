@@ -31,13 +31,13 @@ What She Gets:
 - Personalized savings advice and tools for setting short-term financial goals.
 
 ## Key Scenarios
-### Scenario 1 – Samantha:
+### Scenario 1 – Samantha
 
 Samantha logs into the banking app. She immediately sees her current balance and recent transactions. She notices a few subscription payments she forgot about and uses the subscription tracker feature to cancel unnecessary ones, and automate some only for few months. Samantha sets up a savings goal for a condo down payment and activates the micro-savings feature to automatically save small amounts. She also receives investment suggestions that align with her risk profile, helping her explore early investment options.
-### Scenario 2 – John:
+### Scenario 2 – John
 
 John travels frequently for work and needs access to different currencies. Using the banking app, he can view his multi-currency accounts and switch between CAD, USD and EUR seamlessly. He receives a notification about a recent large transaction while traveling and uses the card freezing feature to secure his account until the issue is resolved. Later, he checks his loan health dashboard to monitor the progress of his small business loan, viewing his upcoming payments and remaining balance.
-### Scenario 3 – Emily:
+### Scenario 3 – Emily
 
 Emily is a university student living with roommates, and they often share bills. She uses the bill-splitting feature to divide their rent and utility payments, making it easy to track who owes what. Emily also sets up alerts for her account balance and receives a notification when her funds drop below a certain threshold, helping her avoid overdrafts. She regularly checks her credit score using the app’s credit monitoring tool.
 
