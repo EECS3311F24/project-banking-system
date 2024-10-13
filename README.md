@@ -13,3 +13,10 @@ To develop on this project, you need the following:
 - Java (8)
 - MySQL
 
+## Contribution
+We have the three main branches:
+1) master
+2) dev
+3) QA (testing)
+
+Otherwise, we may have extra branches for more specific fixes/additions.
