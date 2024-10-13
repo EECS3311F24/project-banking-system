@@ -28,7 +28,8 @@ John's scenario highlights multi-currency management, real-time transaction aler
 Emily's scenario involves bill-splitting, setting up balance alerts, and monitoring her credit score—features that fit her persona as a university student managing shared expenses and aiming to build her credit score. The alerts and bill-splitting tools address her financial management needs and ensure she avoids overdrafts.
 __________________________________________________________________________________________________________________________
 
-Samantha – Young Professional (Persona 1)
+# Samantha – Young Professional (Persona 1)
+
 Needs: Manage personal finances, save for a condo, explore investment opportunities, and stay organized with subscriptions.
 
 What She Gets:
@@ -37,7 +38,8 @@ What She Gets:
 - Notifications for her balance and real-time fraud alerts for increased security.
 - Taking credit before receiving the pay check
 
-John – Small Business Owner (Persona 2)
+# John – Small Business Owner (Persona 2)
+
 Needs: Manage multi-currency accounts, handle business expenses, and access flexible loan options for business growth.
 
 What He Gets:
@@ -46,7 +48,8 @@ What He Gets:
 - Real-time fraud alerts and card freezing features for enhanced security on the go.
 - Easy-to-use account management with customer support chat to resolve issues quickly.
 
-Emily – University Student (Persona 3)
+# Emily – University Student (Persona 3)
+
 Needs: Track her monthly expenses, manage subscriptions, split bills with roommates, and improve her credit score.
 
 What She Gets:
