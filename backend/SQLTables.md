@@ -1,4 +1,4 @@
-# TABLES for MySQL
+    # TABLES for MySQL
 ## Customer Info
 ``` SQL
 CREATE TABLE CustomerInfo(
@@ -36,6 +36,8 @@ CREATE TABLE Transactions(
     accountNo           INT NOT NULL,
     transactionType     VARCHAR(7) CHECK (type="deposit" OR type='withdraw'),
     amount              INT NOT NULL,
-    FOREIGN KEY (accountN) REFERENCES CustomerInfo(customerID)
+    transactionDate     DATE,
+    FOREIGN KEY (accountN) REFERENCES CustomerInfo(customerID),
+    PRIMARY KEY (accountNo, DATE)
 );
 ```
