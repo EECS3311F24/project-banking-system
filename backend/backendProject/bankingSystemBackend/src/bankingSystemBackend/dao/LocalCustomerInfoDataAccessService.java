@@ -15,5 +15,40 @@ public class LocalCustomerInfoDataAccessService implements CustomerInfoDAO {
         DB.add(new CustomerInfo(id, customer.getEmail(), customer.getPassword(), customer.getMobileNum(), customer.getAddress()));
         return true;
     }
+
+	@Override
+	public List<CustomerInfo> getAllCustomerInfo() {
+		return DB;
+	}
+
+	@Override
+	public CustomerInfo getCustomerInfoFromMailAndPass(String mail, String pass) {
+    	List<CustomerInfo> infos = this.getAllCustomerInfo();
+    	
+    	for (CustomerInfo customer : infos) {
+    		if (customer.getEmail().equals(mail) && customer.getPassword().equals(pass))
+    			return customer;
+    	}
+    	return null;
+    }
+
+	@Override
+	public boolean changeCustomerInfo(String email, String oldPassword, String newPassword, String newMobileNumber,
+			String newAddress) {
+		CustomerInfo customer = getCustomerInfoFromMailAndPass(email, oldPassword);
+		if (customer == null) return false;
+		
+		if (newPassword != null) customer.setPassword(newPassword);
+		if (newMobileNumber != null) customer.setMobileNum(newMobileNumber);
+		if (newAddress != null) customer.setAddress(newAddress);
+		
+		return true;
+	}
+
+	@Override
+	public boolean removeCustomer(String email, String password) {
+		List<CustomerInfo> infos = this.getAllCustomerInfo();
+		return infos.removeIf(customer -> (customer.getEmail() == email && customer.getPassword() == password));
+	}
     
 }

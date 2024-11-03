@@ -1,5 +1,7 @@
 package bankingSystemBackend.service;
 
+import java.util.List;
+
 import bankingSystemBackend.dao.CustomerInfoDAO;
 import bankingSystemBackend.model.CustomerInfo;
 
@@ -12,5 +14,17 @@ public class CustomerInfoService {
 
     public boolean addCustomerInfo(CustomerInfo customerInfo){
         return customerInfoDAO.addCustomerInfo(customerInfo);
+    }
+    
+    public CustomerInfo getCustomerInfoFromMailAndPass(String mail, String pass) {
+    	return customerInfoDAO.getCustomerInfoFromMailAndPass(mail, pass);
+    }
+    
+    public boolean changeCustomerInfo(String email, String oldPassword, String newPassword, String newMobileNum, String newAddress) {
+    	return customerInfoDAO.changeCustomerInfo(email, oldPassword, newPassword, newMobileNum, newAddress);
+    }
+    
+    public boolean removeCustomer(String email, String password) {
+    	return customerInfoDAO.removeCustomer(email, password);
     }
 }

@@ -3,8 +3,8 @@ package bankingSystemBackend.model;
 import java.util.UUID;
 
 public class CustomerInfo {
-    private UUID customerID;
-    private String email;
+    private final UUID customerID;
+    private final String email;
     private String password;
     private String mobileNum;
     private String address;
@@ -35,5 +35,17 @@ public class CustomerInfo {
 
     public String getAddress() {
         return address;
+    }
+    
+    public void setPassword(String password) {
+    	this.password = password;
+    }
+    
+    public void setMobileNum(String mobileNum) {
+    	this.mobileNum = mobileNum;
+    }
+    
+    public void setAddress(String address) {
+    	this.address = address;
     }
 }

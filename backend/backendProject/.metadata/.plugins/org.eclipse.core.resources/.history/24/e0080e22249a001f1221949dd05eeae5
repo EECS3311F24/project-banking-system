@@ -1,0 +1,26 @@
+package bankingSystemBackend.service;
+
+import java.util.List;
+
+import bankingSystemBackend.dao.CustomerInfoDAO;
+import bankingSystemBackend.model.CustomerInfo;
+
+public class CustomerInfoService {
+    private final CustomerInfoDAO customerInfoDAO;
+
+    public CustomerInfoService(CustomerInfoDAO customerInfoDao){
+        this.customerInfoDAO = customerInfoDao;
+    }
+
+    public boolean addCustomerInfo(CustomerInfo customerInfo){
+        return customerInfoDAO.addCustomerInfo(customerInfo);
+    }
+    
+    private List<CustomerInfo> getAllCustomerInfo(){
+    	return customerInfoDAO.getAllCustomerInfo();
+    }
+    
+    public CustomerInfo getCustomerInfoFromMailAndPass(String mail, String pass) {
+    	return customerInfoDAO.getCustomerInfoFromMailAndPass(mail, pass);
+    }
+}

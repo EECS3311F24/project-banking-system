@@ -1,0 +1,16 @@
+package bankingSystemBackend.service;
+
+import bankingSystemBackend.dao.CustomerInfoDAO;
+import bankingSystemBackend.model.CustomerInfo;
+
+public class CustomerInfoService {
+    private final CustomerInfoDAO customerInfoDAO;
+
+    public CustomerInfoService(CustomerInfoDAO customerInfoDao){
+        this.customerInfoDAO = customerInfoDao;
+    }
+
+    public boolean addCustomerInfo(CustomerInfo customerInfo){
+        return customerInfoDAO.addCustomerInfo(customerInfo);
+    }
+}
