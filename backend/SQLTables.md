@@ -14,8 +14,17 @@ CREATE TABLE CustomerInfo(
 CREATE TABLE Account(
     accountID           INT PRIMARY KEY AUTO_INCREMENT,
     accountBalance      INT,
-    ownerID             INT,
-    FOREIGN KEY (ownerID) REFERENCES CustomerInfo(CustomerID)
+);
+```
+
+### AccountOwners
+``` SQL
+CREATE TABLE AccountOwners(
+    aID     INT,
+    cID     INT,
+    FOREIGN KEY (aID) REFERENCES Account(accountID) ON DELETE CASCADE,
+    FOREIGN KEY (cID) REFERENCES CustomerInfo(customerID) ON DELETE CASCADE,
+    PRIMARY KEY (aID, cID)
 );
 ```
 
@@ -37,7 +46,7 @@ CREATE TABLE Transactions(
     transactionType     VARCHAR(7) CHECK (type="deposit" OR type='withdraw'),
     amount              INT NOT NULL,
     transactionDate     DATE,
-    FOREIGN KEY (accountN) REFERENCES CustomerInfo(customerID),
+    FOREIGN KEY (accountNo) REFERENCES CustomerInfo(customerID),
     PRIMARY KEY (accountNo, transactionDate)
 );
 ```

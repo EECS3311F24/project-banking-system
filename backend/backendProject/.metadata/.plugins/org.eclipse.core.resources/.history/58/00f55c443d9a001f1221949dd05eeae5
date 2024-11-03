@@ -1,0 +1,28 @@
+package bankingSystemBackend.dao;
+
+import java.util.List;
+import java.util.UUID;
+
+import bankingSystemBackend.model.Account;
+import bankingSystemBackend.model.CustomerInfo;
+
+public interface AccountDAO {
+    boolean insertAccount(Account account); // create account   
+    boolean insertAccountConnection(Account account, CustomerInfo customer); // create accountOwners row
+    
+    boolean addCustomerToAccount(UUID accountID, CustomerInfo customer);
+    
+    List<UUID> getAccountIDsFromCustomerID(UUID cID);
+    List<UUID> getCustomerIDsFromAccountID(UUID aID);
+    
+    boolean changeBalance(UUID aID, String typeOfTransaction, double amount);
+    
+    boolean removeAssociatedCustomerFromAccount(UUID aID, UUID cID);
+    boolean removeAccount(UUID aID);
+    
+    default boolean addAccount(CustomerInfo customer){
+        UUID id = UUID.randomUUID();
+        Account account = new Account(id, 0);
+        return insertAccount(account) && insertAccountConnection(account, customer);
+    }
+} 

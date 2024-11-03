@@ -1,6 +1,7 @@
 package bankingSystemBackend.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import bankingSystemBackend.dao.CustomerInfoDAO;
 import bankingSystemBackend.model.CustomerInfo;
@@ -20,11 +21,15 @@ public class CustomerInfoService {
     	return customerInfoDAO.getCustomerInfoFromMailAndPass(mail, pass);
     }
     
-    public boolean changeCustomerInfo(String email, String oldPassword, String newPassword, String newMobileNum, String newAddress) {
-    	return customerInfoDAO.changeCustomerInfo(email, oldPassword, newPassword, newMobileNum, newAddress);
+    public CustomerInfo getCustomerInfoFromID(UUID id) {
+    	return customerInfoDAO.getCustomerInfoFromID(id);
     }
     
-    public boolean removeCustomer(String email, String password) {
-    	return customerInfoDAO.removeCustomer(email, password);
+    public boolean changeCustomerInfo(UUID customerID, String newPassword, String newMobileNum, String newAddress) {
+    	return customerInfoDAO.changeCustomerInfo(customerID, newPassword, newMobileNum, newAddress);
+    }
+    
+    public boolean removeCustomer(UUID customerID) {
+    	return customerInfoDAO.removeCustomer(customerID);
     }
 }

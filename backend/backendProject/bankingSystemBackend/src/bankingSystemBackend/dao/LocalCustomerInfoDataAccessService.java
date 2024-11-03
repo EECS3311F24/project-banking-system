@@ -31,11 +31,22 @@ public class LocalCustomerInfoDataAccessService implements CustomerInfoDAO {
     	}
     	return null;
     }
+	
+	@Override
+	public CustomerInfo getCustomerInfoFromID(UUID customerID) {
+		List<CustomerInfo> infos = this.getAllCustomerInfo();
+    	
+    	for (CustomerInfo customer : infos) {
+    		if (customer.getCustomerID().equals(customerID))
+    			return customer;
+    	}
+    	return null;
+	}
 
 	@Override
-	public boolean changeCustomerInfo(String email, String oldPassword, String newPassword, String newMobileNumber,
+	public boolean changeCustomerInfo(UUID customerID, String newPassword, String newMobileNumber,
 			String newAddress) {
-		CustomerInfo customer = getCustomerInfoFromMailAndPass(email, oldPassword);
+		CustomerInfo customer = getCustomerInfoFromID(customerID);
 		if (customer == null) return false;
 		
 		if (newPassword != null) customer.setPassword(newPassword);
@@ -46,9 +57,10 @@ public class LocalCustomerInfoDataAccessService implements CustomerInfoDAO {
 	}
 
 	@Override
-	public boolean removeCustomer(String email, String password) {
+	public boolean removeCustomer(UUID customerID) {
 		List<CustomerInfo> infos = this.getAllCustomerInfo();
-		return infos.removeIf(customer -> (customer.getEmail() == email && customer.getPassword() == password));
+		return infos.removeIf(customer -> (customer.getCustomerID().equals(customerID)));
 	}
+
     
 }

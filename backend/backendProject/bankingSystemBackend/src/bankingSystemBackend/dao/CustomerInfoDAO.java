@@ -11,10 +11,12 @@ public interface CustomerInfoDAO {
     List<CustomerInfo> getAllCustomerInfo();
     
     CustomerInfo getCustomerInfoFromMailAndPass(String mail, String pass);
-
-    boolean changeCustomerInfo(String email, String oldPassword, String newPassword, String newMobileNumber, String newAddress);
     
-    boolean removeCustomer(String email, String password);
+    CustomerInfo getCustomerInfoFromID(UUID customerID);
+
+    boolean changeCustomerInfo(UUID customerID, String newPassword, String newMobileNumber, String newAddress);
+    
+    boolean removeCustomer(UUID customerID);
 
     default boolean addCustomerInfo(CustomerInfo customer){
         UUID id = UUID.randomUUID();

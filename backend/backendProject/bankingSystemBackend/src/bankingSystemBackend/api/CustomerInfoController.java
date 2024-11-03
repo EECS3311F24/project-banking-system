@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.UUID;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,12 +72,38 @@ public class CustomerInfoController implements HttpHandler{
         	CustomerInfo customer = customerInfoService.getCustomerInfoFromMailAndPass(deserialized.getString("customerMail"), deserialized.getString("customerPass"));
         	
         	if (customer == null) {
-        		r.sendResponseHeaders(400, -1);
+        		r.sendResponseHeaders(404, -1);
         		return;
         	}
         	
         	String response = new JSONObject()
         			.put("customerID", customer.getCustomerID())
+        			.put("customerMail", customer.getEmail())
+        			.put("customerPass", customer.getPassword())
+        			.put("customerMobileNum", customer.getMobileNum())
+        			.put("customerAddress", customer.getAddress())
+        			.toString();
+        	
+        	r.sendResponseHeaders(200, response.length());
+        	OutputStream os = r.getResponseBody();
+        	os.write(response.getBytes());
+        	os.close();
+        	return;
+        }
+        
+     // get user from id
+        if (deserialized.length() == 1 && deserialized.has("customerID")) { 
+        	CustomerInfo customer = customerInfoService.getCustomerInfoFromID(UUID.fromString(deserialized.getString("customerID")));
+        	
+        	if (customer == null) {
+        		r.sendResponseHeaders(404, -1);
+        		return;
+        	}
+        	
+        	String response = new JSONObject()
+        			.put("customerID", customer.getCustomerID())
+        			.put("customerMail", customer.getEmail())
+        			.put("customerPass", customer.getPassword())
         			.put("customerMobileNum", customer.getMobileNum())
         			.put("customerAddress", customer.getAddress())
         			.toString();
@@ -95,11 +122,6 @@ public class CustomerInfoController implements HttpHandler{
     	String body = Utils.convert(r.getRequestBody());
         JSONObject deserialized = new JSONObject(body);
         
-        if (!deserialized.has("customerMail") || !deserialized.has("customerPass")) {
-        	r.sendResponseHeaders(400, -1);
-        	return;
-        }
-        
         String newPassword = null;
         String newMobileNum = null;
         String newAddress = null;
@@ -108,8 +130,7 @@ public class CustomerInfoController implements HttpHandler{
         if (deserialized.has("newMobileNum")) newMobileNum = deserialized.getString("newMobileNum");
         if (deserialized.has("newAddress")) newAddress = deserialized.getString("newAddress");
         
-         if (customerInfoService.changeCustomerInfo(deserialized.getString("customerMail"),
-        		 									deserialized.getString("customerPass"),
+         if (customerInfoService.changeCustomerInfo(UUID.fromString((String) deserialized.get("customerID")),
         		 									newPassword, 
         		 									newMobileNum, 
         		 									newAddress)) 
@@ -125,13 +146,14 @@ public class CustomerInfoController implements HttpHandler{
         JSONObject deserialized = new JSONObject(body);
         
         // get user from email + password
-        if (deserialized.length() == 2 && deserialized.has("customerMail") && deserialized.has("customerPass")) { 
+        if (deserialized.length() == 1 && deserialized.has("customerID")) { 
         	
-        	if (customerInfoService.removeCustomer((String) deserialized.get("customerMail"), (String) deserialized.get("customerPass"))) {
+        	if (customerInfoService.removeCustomer(UUID.fromString((String) deserialized.get("customerID")))) {
         		r.sendResponseHeaders(200, -1);
+        		return;
         	} 
         	
-        	r.sendResponseHeaders(400, -1);
+        	r.sendResponseHeaders(404, -1);
         	return;
         }
         

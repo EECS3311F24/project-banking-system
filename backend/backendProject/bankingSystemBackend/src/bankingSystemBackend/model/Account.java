@@ -5,12 +5,10 @@ import java.util.UUID;
 public class Account {
     private UUID accountID;
     private int accountBalance;
-    private int ownerID;
     
-    public Account(UUID accountID, int accountBalance, int ownerID) {
+    public Account(UUID accountID, int accountBalance) {
         this.accountID = accountID;
         this.accountBalance = accountBalance;
-        this.ownerID = ownerID;
     }
 
     public UUID getAccountID() {
@@ -21,7 +19,4 @@ public class Account {
         return accountBalance;
     }
 
-    public int getOwnerID() {
-        return ownerID;
-    }
 }

@@ -1,0 +1,14 @@
+package bankingSystemBackend.dao;
+
+import java.util.UUID;
+
+import bankingSystemBackend.model.Account;
+
+public interface AccountDAO {
+    boolean insertAccount();
+    
+    default boolean addAccount(Account account){
+        UUID id = UUID.randomUUID();
+        return insertCustomerInfo(id, account);
+    }
+} 
