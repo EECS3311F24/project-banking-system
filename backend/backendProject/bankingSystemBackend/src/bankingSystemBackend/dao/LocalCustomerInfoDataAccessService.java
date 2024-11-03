@@ -1,0 +1,19 @@
+package bankingSystemBackend.dao;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import bankingSystemBackend.model.CustomerInfo;
+
+public class LocalCustomerInfoDataAccessService implements CustomerInfoDAO {
+
+    private static List<CustomerInfo> DB = new ArrayList<>();
+
+    @Override
+    public boolean insertCustomerInfo(UUID id, CustomerInfo customer) {
+        DB.add(new CustomerInfo(id, customer.getEmail(), customer.getPassword(), customer.getMobileNum(), customer.getAddress()));
+        return true;
+    }
+    
+}
