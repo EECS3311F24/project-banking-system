@@ -14,7 +14,3 @@ Release Goals:
 Project Scope: 
 
 
-User Stories 
-  - As a user (Samantha), I want to set and track financial goals to save for future investments.
-  - As a user (John), I want to manage multi-currency accounts to handle international transactions smoothly.
-  - As a user (Emily), I want to split bills with roommates to manage shared expenses easily.
