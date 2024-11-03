@@ -38,6 +38,6 @@ CREATE TABLE Transactions(
     amount              INT NOT NULL,
     transactionDate     DATE,
     FOREIGN KEY (accountN) REFERENCES CustomerInfo(customerID),
-    PRIMARY KEY (accountNo, DATE)
+    PRIMARY KEY (accountNo, transactionDate)
 );
 ```
