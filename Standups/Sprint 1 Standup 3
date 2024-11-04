@@ -1,1 +1,16 @@
+[30 October, 2024]: Sprint 1 Standup 3
+
+- What did the team work on since the last standup?
+  Set up the backend environment and configured the initial database schema for users, accounts, and transactions.
+  Galen, Oshiya, and Melvin worked on setting up initial API routes for the login functionality, including user authentication and basic error handling.
+
+- What does the team commit to next?
+  Complete the backend functionality for the login process, ensuring secure authentication and database integration.
+  Begin development of the transaction feature on the backend, focusing on structuring the API for handling deposits, withdrawals, and transfers.
+
+- When does the team expect to be done?
+  The login functionality should be fully developed by the next standup, with progress on the transaction feature started.
+
+- Does the team have any blockers?
+  No blockers, though there may be discussions about secure data handling in user authentication.
 
