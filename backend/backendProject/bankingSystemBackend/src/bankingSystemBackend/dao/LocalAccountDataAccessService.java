@@ -17,55 +17,91 @@ public class LocalAccountDataAccessService implements AccountDAO{
 
 	@Override
 	public boolean insertAccount(Account account) {
-		// TODO Auto-generated method stub
-		return false;
+		return accountDB.add(account);
 	}
 
 	@Override
-	public boolean insertAccountConnection(Account account, CustomerInfo customer) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean insertAccountConnection(UUID aID, UUID cID) {
+		if (getAccountFromID(aID) == null) return false;
+		return accountOwnersDB.add(new AccountOwners(aID, cID));
 	}
 
 	@Override
-	public boolean addCustomerToAccount(UUID accountID, CustomerInfo customer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public List<UUID> getAccountIDsFromCustomerID(UUID cID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<UUID> getCustomerIDsFromAccountID(UUID aID) {
-		// TODO Auto-generated method stub
+	public Account getAccountFromID(UUID aID) {
+		for (Account a : accountDB) {
+			if (a.getAccountID().equals(aID))
+				return a;
+		}
+		
 		return null;
 	}
 	
 	@Override
+	public List<UUID> getAccountIDsFromCustomerID(UUID cID) {
+		List<UUID> accountIds = new ArrayList<>();
+		for (AccountOwners connection : accountOwnersDB) {
+			if (connection.getCID().toString().equals(cID.toString()))
+				accountIds.add(connection.getAID());
+		}
+		return accountIds;
+	}
+
+	@Override
+	public List<UUID> getCustomerIDsFromAccountID(UUID aID) {
+		List<UUID> customerIds = new ArrayList<>();
+		for (AccountOwners connection : accountOwnersDB) {
+			if (connection.getAID().equals(aID))
+				customerIds.add(connection.getCID());
+		}
+		return customerIds;
+	}
+	
+	@Override
 	public List<Transaction> getTransactionsFromAccountID(UUID aID) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Transaction> transactions = new ArrayList<>();
+		for (Transaction transaction : transactionDB) {
+			if (transaction.getAID().equals(aID))
+				transactions.add(transaction);
+		}
+		
+		return transactions;
 	}
 
 	@Override
 	public boolean changeBalance(UUID aID, String typeOfTransaction, double amount) {
-		// TODO Auto-generated method stub
+		final double MINUMUM_BALANCE = 0;
+		
+		Account account = getAccountFromID(aID);
+		
+		if (account == null) return false;
+		
+		if (typeOfTransaction.equals("deposit")) {
+			account.setAccountBalance(account.getAccountBalance() + amount);
+			return true;
+		} 
+		
+		else if (typeOfTransaction.equals("withdraw")) {
+			if (account.getAccountBalance() - amount < MINUMUM_BALANCE) return false;
+			account.setAccountBalance(account.getAccountBalance() - amount);
+			return true;
+		} 
+		
 		return false;
 	}
 
 	@Override
 	public boolean removeAssociatedCustomerFromAccount(UUID aID, UUID cID) {
-		// TODO Auto-generated method stub
-		return false;
+		return accountOwnersDB.removeIf(connection -> (connection.getAID().equals(aID) && connection.getCID().equals(cID)));
 	}
 
 	@Override
 	public boolean removeAccount(UUID aID) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean removed = accountDB.removeIf(connection -> (connection.getAccountID().equals(aID)));
+		
+		if (removed) {
+			accountOwnersDB.removeIf(connection -> (connection.getAID().equals(aID)));
+		}
+		
+		return removed;
 	}
 }

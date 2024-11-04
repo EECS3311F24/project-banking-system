@@ -1,0 +1,53 @@
+package bankingSystemBackend.service;
+
+import java.util.List;
+import java.util.UUID;
+
+import bankingSystemBackend.dao.AccountDAO;
+import bankingSystemBackend.model.Account;
+import bankingSystemBackend.model.CustomerInfo;
+import bankingSystemBackend.model.Transaction;
+
+public class AccountService {
+	private final AccountDAO accountDAO;
+	
+	public AccountService(AccountDAO accountDAO) {
+		this.accountDAO = accountDAO;
+	}
+	
+	public boolean insertAccount(Account account) { // help method
+		return accountDAO.insertAccount(account);
+	}
+	
+    public boolean insertAccountConnection(UUID aID, UUID cID) {
+    	return accountDAO.insertAccountConnection(aID, cID);
+    }
+    
+    public Account getAccountFromID(UUID aID) {
+    	return accountDAO.getAccountFromID(aID);
+    }
+    
+    public List<UUID> getAccountIDsFromCustomerID(UUID cID){
+    	return accountDAO.getAccountIDsFromCustomerID(cID);
+    }
+    
+    public List<UUID> getCustomerIDsFromAccountID(UUID aID){
+    	return accountDAO.getCustomerIDsFromAccountID(aID);
+    }
+    
+    public List<Transaction> getTransactionsFromAccountID(UUID aID){
+    	return accountDAO.getTransactionsFromAccountID(aID);
+    }
+    
+    public boolean changeBalance(UUID aID, String typeOfTransaction, double amount) {
+    	return accountDAO.changeBalance(aID, typeOfTransaction, amount);
+    }
+    
+    public boolean removeAssociatedCustomerFromAccount(UUID aID, UUID cID) {
+    	return accountDAO.removeAssociatedCustomerFromAccount(aID, cID);
+    }
+    
+    public boolean removeAccount(UUID aID) {
+    	return accountDAO.removeAccount(aID);
+    }
+}

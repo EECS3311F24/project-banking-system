@@ -1,0 +1,81 @@
+package bankingSystemBackend.api;
+
+import java.io.IOException;
+import java.util.UUID;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+import bankingSystemBackend.service.AccountService;
+import bankingSystemBackend.utils.Utils;
+
+public class AccountController implements HttpHandler{
+	private static AccountService accountService;
+	
+	public AccountController(AccountService accountService) {
+		this.accountService = accountService;
+	}
+	
+	@Override
+	public void handle(HttpExchange exchange) throws IOException {
+		try {
+            if (exchange.getRequestMethod().equals("POST")){
+                handlePost(exchange);
+            } else if (exchange.getRequestMethod().equals("GET")){ 
+                handleGet(exchange);
+            } else if (exchange.getRequestMethod().equals("PUT")){
+                handlePut(exchange);
+            } else if (exchange.getRequestMethod().equals("DELETE")){
+                handleDelete(exchange);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		
+	}
+
+	private void handlePost(HttpExchange exchange) throws IOException, JSONException{
+		String body = Utils.convert(exchange.getRequestBody());
+        JSONObject deserialized = new JSONObject(body);
+        
+        if (!deserialized.has("customerID")) {
+        	exchange.sendResponseHeaders(400, -1);
+        	return;
+        }
+        
+        if (deserialized.has("accountID")) {
+        	// do assign customer to existing account
+        	 if (accountService.insertAccountConnection(
+        			 UUID.fromString(deserialized.getString("accountID")), 
+        			 UUID.fromString(deserialized.getString("customerID")))) 
+        	 {
+        		 exchange.sendResponseHeaders(200, -1);
+        		 return;
+        	 }
+        	 exchange.sendResponseHeaders(400, -1);
+        } else {
+        	// create new account assigned to cID
+        	accountService.addAccount(UUID.fromString(deserialized.getString("customerID")));
+        	exchange.sendResponseHeaders(200, -1);
+        }
+	}
+
+	private void handleGet(HttpExchange exchange) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void handlePut(HttpExchange exchange) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void handleDelete(HttpExchange exchange) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}

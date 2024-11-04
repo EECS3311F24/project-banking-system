@@ -9,9 +9,9 @@ import bankingSystemBackend.model.Transaction;
 
 public interface AccountDAO {
     boolean insertAccount(Account account); // create account   
-    boolean insertAccountConnection(Account account, CustomerInfo customer); // create accountOwners row
+    boolean insertAccountConnection(UUID aID, UUID cID); // create accountOwners row
     
-    boolean addCustomerToAccount(UUID accountID, CustomerInfo customer);
+    Account getAccountFromID(UUID aID);
     
     List<UUID> getAccountIDsFromCustomerID(UUID cID);
     List<UUID> getCustomerIDsFromAccountID(UUID aID);
@@ -23,9 +23,9 @@ public interface AccountDAO {
     boolean removeAssociatedCustomerFromAccount(UUID aID, UUID cID);
     boolean removeAccount(UUID aID);
     
-    default boolean addAccount(CustomerInfo customer){
+    default boolean addAccount(UUID cID){
         UUID id = UUID.randomUUID();
         Account account = new Account(id, 0);
-        return insertAccount(account) && insertAccountConnection(account, customer);
+        return insertAccount(account) && insertAccountConnection(account.getAccountID(), cID);
     }
 } 

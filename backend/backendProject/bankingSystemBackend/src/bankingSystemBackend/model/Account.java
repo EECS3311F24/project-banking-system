@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class Account {
     private UUID accountID;
-    private int accountBalance;
+    private double accountBalance;
     
     public Account(UUID accountID, int accountBalance) {
         this.accountID = accountID;
@@ -15,8 +15,12 @@ public class Account {
         return accountID;
     }
 
-    public int getAccountBalance() {
+    public double getAccountBalance() {
         return accountBalance;
+    }
+    
+    public void setAccountBalance(double newBal) {
+    	this.accountBalance = newBal;
     }
 
 }

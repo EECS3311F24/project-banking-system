@@ -1,0 +1,129 @@
+package bankingSystemBackend.api;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+import bankingSystemBackend.model.Account;
+import bankingSystemBackend.service.AccountService;
+import bankingSystemBackend.utils.Utils;
+
+public class AccountController implements HttpHandler{
+	private static AccountService accountService;
+	
+	public AccountController(AccountService accountService) {
+		this.accountService = accountService;
+	}
+	
+	@Override
+	public void handle(HttpExchange exchange) throws IOException {
+		try {
+            if (exchange.getRequestMethod().equals("POST")){
+                handlePost(exchange);
+            } else if (exchange.getRequestMethod().equals("GET")){ 
+                handleGet(exchange);
+            } else if (exchange.getRequestMethod().equals("PUT")){
+                handlePut(exchange);
+            } else if (exchange.getRequestMethod().equals("DELETE")){
+                handleDelete(exchange);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		
+	}
+
+	private void handlePost(HttpExchange exchange) throws IOException, JSONException{
+		String body = Utils.convert(exchange.getRequestBody());
+        JSONObject deserialized = new JSONObject(body);
+        
+        if (!deserialized.has("customerID")) {
+        	exchange.sendResponseHeaders(400, -1);
+        	return;
+        }
+        
+        if (deserialized.has("accountID")) {
+        	// do assign customer to existing account
+        	 if (accountService.insertAccountConnection(
+        			 UUID.fromString(deserialized.getString("accountID")), 
+        			 UUID.fromString(deserialized.getString("customerID")))) 
+        	 {
+        		 exchange.sendResponseHeaders(200, -1);
+        		 return;
+        	 }
+        	 exchange.sendResponseHeaders(400, -1);
+        } else {
+        	// create new account assigned to cID
+        	accountService.addAccount(UUID.fromString(deserialized.getString("customerID")));
+        	exchange.sendResponseHeaders(200, -1);
+        }
+	}
+
+	private void handleGet(HttpExchange exchange) throws IOException, JSONException{
+		String body = Utils.convert(exchange.getRequestBody());
+        JSONObject deserialized = new JSONObject(body);
+        String response = "";
+		
+        if (!deserialized.has("type")) {
+        	exchange.sendResponseHeaders(400, -1);
+        	return;
+        }
+        
+        if (deserialized.get("type").equals("account") && deserialized.has("accountID")) {        	
+        	Account account = accountService.getAccountFromID(UUID.fromString(deserialized.getString("accountID")));
+        	
+        	response = new JSONObject()
+        			.put("accountID", account.getAccountID())
+        			.put("accountBalance", account.getAccountBalance())
+        			.toString();
+        	
+        } else if (deserialized.get("type").equals("accountIDs") && deserialized.has("customerID")) {
+        	List<UUID> ids = accountService.getAccountIDsFromCustomerID(UUID.fromString(deserialized.getString("customerID")));
+        	
+        	List<JSONObject> jsonList = new ArrayList<>();
+        	for(UUID id : ids) {
+        		jsonList.add(new JSONObject().put("accountID", id));
+        	}
+        	response = jsonList.toString();
+        	
+        } else if (deserialized.get("type").equals("customerIDs") && deserialized.has("accountID")) {
+        	List<UUID> ids = accountService.getCustomerIDsFromAccountID(UUID.fromString(deserialized.getString("accountID")));
+        	
+        	List<JSONObject> jsonList = new ArrayList<>();
+        	for(UUID id : ids) {
+        		jsonList.add(new JSONObject().put("customerID", id));
+        	}
+        	response = jsonList.toString();
+        	
+        } else if (deserialized.get("type").equals("transactions")) {
+        	
+        } else {
+        	exchange.sendResponseHeaders(400, -1);
+        }
+        
+        exchange.sendResponseHeaders(200, response.length());
+    	OutputStream os = exchange.getResponseBody();
+    	os.write(response.getBytes());
+    	os.close();
+    	return;
+	}
+
+	private void handlePut(HttpExchange exchange) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void handleDelete(HttpExchange exchange) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}

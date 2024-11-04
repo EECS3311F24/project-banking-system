@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import com.sun.net.httpserver.*;
 
+import bankingSystemBackend.api.AccountController;
 import bankingSystemBackend.api.CustomerInfoController;
+import bankingSystemBackend.dao.LocalAccountDataAccessService;
 import bankingSystemBackend.dao.LocalCustomerInfoDataAccessService;
+import bankingSystemBackend.service.AccountService;
 import bankingSystemBackend.service.CustomerInfoService;
 
 class Backend{
@@ -19,7 +22,15 @@ class Backend{
         CustomerInfoController customerInfoController = new CustomerInfoController(customerInfoService);
         
         server.createContext("/api/customerInfo", customerInfoController);
+        
+        AccountController accountController = new AccountController(
+        			new AccountService(
+        						new LocalAccountDataAccessService()
+        					)
+        		);
 
+        server.createContext("/api/account", accountController);
+        
         server.start();
         System.out.printf("Server started on port %d...\n", PORT);
     }

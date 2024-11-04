@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="org.json.JSONStringer"/>
+    <fullyQualifiedTypeName name="java.io.OutputStream"/>
+    <fullyQualifiedTypeName name="bankingSystemBackend.model.CustomerInfo"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="bankingSystemBackend.model.AccountOwners"/>
+    <fullyQualifiedTypeName name="bankingSystemBackend.dao.AccountDAO"/>
+    <fullyQualifiedTypeName name="java.util.UUID"/>
+    <fullyQualifiedTypeName name="bankingSystemBackend.model.Account"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="bankingSystemBackend.model.Transaction"/>
+    <fullyQualifiedTypeName name="bankingSystemBackend.dao.LocalAccountDataAccessService"/>
+    <fullyQualifiedTypeName name="bankingSystemBackend.service.AccountService"/>
+    <fullyQualifiedTypeName name="bankingSystemBackend.api.AccountController"/>
+</qualifiedTypeNameHistroy>
