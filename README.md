@@ -7,12 +7,16 @@ This project aims to provide a modern, user-friendly banking solution tailored t
 This project aims to simplify financial management by creating a user-friendly banking application with personalized features like real-time fraud alerts, bill splitting, and multi-currency support—that address the specific needs of modern users overlooked by traditional banks.
 
 ## Installation
-To develop on this project, you need the following:
+To develop on this project, you currently need the following:
 - NodeJS (installation of other dependencies)
 - Angular CLI
 - Java (1.8)
-- MySQL
-- Coding Pack for Java
+- Eclipse
+
+To run the backend, you have to do the following:
+1) clone the repo
+2) Open Eclipse with the path folder <code>backend/backendProject</code>
+3) To run backend, run the <code>backend.java</code> file
 
 ## Contribution
 We have the three main branches:
