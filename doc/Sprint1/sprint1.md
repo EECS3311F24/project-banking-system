@@ -46,11 +46,11 @@ Task Breakdown
 
 	1. Front-end (Sourish, Aditya)
 	-> Develop UI components for expense reporting and credit score display.
-Implement user interfaces for subscription automation and money transfer.
+	-> Implement user interfaces for subscription automation and money transfer.
 
 	2. Back-end (Galen, Oshiya, Melvin)
 	-> Set up API endpoints for monthly reports, subscription automation, and credit score retrieval.
-Integrate a secure, internal transfer mechanism within the app.
+ 	-> Integrate a secure, internal transfer mechanism within the app.
 
 
 Spikes
