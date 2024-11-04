@@ -27,6 +27,7 @@ Team Capacity
 
 
 User Stories to Complete this Sprint
+
 	1. Generate Monthly Expense Reports
 	-> Inspiration: Standard bank statements
 	
@@ -42,6 +43,7 @@ User Stories to Complete this Sprint
 
 
 Task Breakdown
+
 	1. Front-end (Sourish, Aditya)
 	-> Develop UI components for expense reporting and credit score display.
 Implement user interfaces for subscription automation and money transfer.
@@ -52,6 +54,7 @@ Integrate a secure, internal transfer mechanism within the app.
 
 
 Spikes
+
 	-> Research on implementing credit score monitoring APIs.
 	-> Investigate internal transfer processes for secure in-app transactions without third-party services.
 
@@ -66,6 +69,7 @@ October 31 - November 3: Review and refine tested code for submission.
 
 
 Decisions
+
 Front-end ownership: Sourish
 Back-end ownership: Galen
 Updates and Communication: Mostly through Sourish and Galen, all team members are encouraged to participate and provide updates as needed.
