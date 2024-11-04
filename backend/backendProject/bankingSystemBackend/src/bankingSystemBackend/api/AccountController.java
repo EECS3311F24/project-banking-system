@@ -63,8 +63,11 @@ public class AccountController implements HttpHandler{
         	 exchange.sendResponseHeaders(400, -1);
         } else {
         	// create new account assigned to cID
-        	accountService.addAccount(UUID.fromString(deserialized.getString("customerID")));
-        	exchange.sendResponseHeaders(201, -1);
+        	if (accountService.addAccount(UUID.fromString(deserialized.getString("customerID"))))
+        		exchange.sendResponseHeaders(201, -1);
+        	else {
+        		exchange.sendResponseHeaders(400, -1);
+        	}
         }
 	}
 
@@ -93,6 +96,7 @@ public class AccountController implements HttpHandler{
         	for(UUID id : ids) {
         		jsonList.add(new JSONObject().put("accountID", id));
         	}
+        	
         	response = jsonList.toString();
         	
         } else if (deserialized.get("type").equals("customerIDs") && deserialized.has("accountID")) {
@@ -125,7 +129,6 @@ public class AccountController implements HttpHandler{
     	OutputStream os = exchange.getResponseBody();
     	os.write(response.getBytes());
     	os.close();
-    	return;
 	}
 
 	private void handlePut(HttpExchange exchange) throws IOException, JSONException{

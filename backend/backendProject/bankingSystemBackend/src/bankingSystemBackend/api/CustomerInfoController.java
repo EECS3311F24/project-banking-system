@@ -67,7 +67,7 @@ public class CustomerInfoController implements HttpHandler{
     	String body = Utils.convert(r.getRequestBody());
         JSONObject deserialized = new JSONObject(body);
         
-        // get user from user + password
+        // get user from mail + password
         if (deserialized.length() == 2 && deserialized.has("customerMail") && deserialized.has("customerPass")) { 
         	CustomerInfo customer = customerInfoService.getCustomerInfoFromMailAndPass(deserialized.getString("customerMail"), deserialized.getString("customerPass"));
         	
@@ -145,7 +145,7 @@ public class CustomerInfoController implements HttpHandler{
     	String body = Utils.convert(r.getRequestBody());
         JSONObject deserialized = new JSONObject(body);
         
-        // get user from email + password
+        // get user from id
         if (deserialized.length() == 1 && deserialized.has("customerID")) { 
         	
         	if (customerInfoService.removeCustomer(UUID.fromString((String) deserialized.get("customerID")))) {

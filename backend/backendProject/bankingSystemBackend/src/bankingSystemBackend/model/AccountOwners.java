@@ -18,4 +18,8 @@ public class AccountOwners {
 	public UUID getAID() {
 		return this.aID;
 	}
+	
+	public String toString(){
+		return cID.toString() + " " + aID.toString();
+	}
 }

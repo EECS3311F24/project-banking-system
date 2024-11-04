@@ -6,7 +6,7 @@ public class Account {
     private UUID accountID;
     private double accountBalance;
     
-    public Account(UUID accountID, int accountBalance) {
+    public Account(UUID accountID, double accountBalance) {
         this.accountID = accountID;
         this.accountBalance = accountBalance;
     }

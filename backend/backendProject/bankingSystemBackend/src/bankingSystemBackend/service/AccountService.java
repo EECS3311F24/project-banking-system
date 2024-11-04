@@ -19,8 +19,8 @@ public class AccountService {
 		return accountDAO.addAccount(cID);
 	}
 	
-	public boolean insertAccount(Account account) { // help method
-		return accountDAO.insertAccount(account);
+	public boolean insertAccount(UUID id, double amount) { // help method
+		return accountDAO.insertAccount(id, amount);
 	}
 	
     public boolean insertAccountConnection(UUID aID, UUID cID) {

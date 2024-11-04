@@ -31,4 +31,8 @@ public class Transaction {
 	public Date getDate() {
 		return this.transactionDate;
 	}
+	
+	public String toString() {
+		return this.aID.toString() + " " + this.transactionType + " " + this.amount + " " + this.transactionDate.toString();
+	}
 }

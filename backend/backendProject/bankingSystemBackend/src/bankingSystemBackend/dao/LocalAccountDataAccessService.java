@@ -16,14 +16,14 @@ public class LocalAccountDataAccessService implements AccountDAO{
 	private static List<Transaction>   transactionDB = new ArrayList<>();
 
 	@Override
-	public boolean insertAccount(Account account) {
-		return accountDB.add(account);
+	public boolean insertAccount(UUID id, double amount) {
+		return accountDB.add(new Account(id, amount));
 	}
 
 	@Override
 	public boolean insertAccountConnection(UUID aID, UUID cID) {
 		if (getAccountFromID(aID) == null) return false;
-		return accountOwnersDB.add(new AccountOwners(aID, cID));
+		return accountOwnersDB.add(new AccountOwners(cID, aID));
 	}
 
 	@Override
@@ -40,9 +40,10 @@ public class LocalAccountDataAccessService implements AccountDAO{
 	public List<UUID> getAccountIDsFromCustomerID(UUID cID) {
 		List<UUID> accountIds = new ArrayList<>();
 		for (AccountOwners connection : accountOwnersDB) {
-			if (connection.getCID().toString().equals(cID.toString()))
+			if (connection.getCID().equals(cID)) // this is faulty?
 				accountIds.add(connection.getAID());
 		}
+		
 		return accountIds;
 	}
 
@@ -77,12 +78,15 @@ public class LocalAccountDataAccessService implements AccountDAO{
 		
 		if (typeOfTransaction.equals("deposit")) {
 			account.setAccountBalance(account.getAccountBalance() + amount);
+			
+			transactionDB.add(new Transaction(aID, typeOfTransaction, amount));
 			return true;
 		} 
 		
 		else if (typeOfTransaction.equals("withdraw")) {
 			if (account.getAccountBalance() - amount < MINUMUM_BALANCE) return false;
 			account.setAccountBalance(account.getAccountBalance() - amount);
+			transactionDB.add(new Transaction(aID, typeOfTransaction, amount));
 			return true;
 		} 
 		

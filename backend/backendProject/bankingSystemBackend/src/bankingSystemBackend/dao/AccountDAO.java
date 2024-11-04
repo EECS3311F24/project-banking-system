@@ -8,7 +8,7 @@ import bankingSystemBackend.model.CustomerInfo;
 import bankingSystemBackend.model.Transaction;
 
 public interface AccountDAO {
-    boolean insertAccount(Account account); // create account   
+    boolean insertAccount(UUID id, double amount); // create account   
     boolean insertAccountConnection(UUID aID, UUID cID); // create accountOwners row
     
     Account getAccountFromID(UUID aID);
@@ -25,7 +25,6 @@ public interface AccountDAO {
     
     default boolean addAccount(UUID cID){
         UUID id = UUID.randomUUID();
-        Account account = new Account(id, 0);
-        return insertAccount(account) && insertAccountConnection(account.getAccountID(), cID);
+        return insertAccount(id, 0) && insertAccountConnection(id, cID);
     }
 } 
