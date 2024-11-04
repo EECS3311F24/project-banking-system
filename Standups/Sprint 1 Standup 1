@@ -3,11 +3,14 @@
 - What did the team work on since the last standup?
   The team focused on creating the initial design for the website in Figma. Aditya and Sourish collaborated on defining the layout, navigation, and UI components, ensuring a cohesive user experience.
   Key screens for the dashboard, login, and account management were sketched out, with input from all team members to align with user personas.
+
 - What does the team commit to next?
   Finalize the Figma design for all primary features, including financial goal tracking, bill splitting, and multi-currency management.
   Gather feedback from team members on the initial design and make any necessary adjustments before moving to development.
+
 - When does the team expect to be done?
   By the next standup, the team expects to have a finalized design in Figma, ready for frontend and backend implementation.
+
 - Does the team have any blockers?
   No blockers currently, but the team is coordinating design elements to ensure consistency.
  
