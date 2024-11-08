@@ -1,0 +1,16 @@
+[November 3, 2024]: Sprint 1 Standup 4
+
+- What did the team work on since the last standup?
+  Completed the backend login functionality, with testing to ensure correct authentication and error handling.
+  Began work on the backend transaction feature, focusing on the API routes for creating and processing transactions, but without connecting it to the frontend yet.
+
+- What does the team commit to next?
+  Finalize the transaction API to handle deposits, withdrawals, and account transfers, ensuring accurate processing in the database.
+  Continue testing and debugging the backend to ensure it meets the project’s initial requirements before any front-end integration begins.
+
+- When does the team expect to be done?
+  The team aims to complete the transaction feature and all related backend testing by the end of the sprint, keeping the backend ready for front-end integration in future sprints.
+
+- Does the team have any blockers?
+  No major blockers, though there’s discussion on handling potential transaction issues like insufficient funds.
+

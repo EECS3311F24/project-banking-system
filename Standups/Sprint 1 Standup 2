@@ -1,1 +1,16 @@
+[October 25, 2024]: Sprint 1 Standup 2
+
+- What did the team work on since the last standup?
+  The Figma design was completed, with Aditya and Sourish finalizing all necessary screens for the app, including login, dashboard, account management, and transaction overview.
+  The team reviewed the design together and made minor adjustments to ensure all elements were consistent with the overall vision.
+
+- What does the team commit to next?
+  Move from design to backend setup. Begin structuring the backend environment, setting up the project repository, and configuring necessary dependencies.
+  Start planning the database schema and structuring the tables for user accounts, transactions, and financial goals.
+
+- When does the team expect to be done?
+  By the next standup, the team expects to have the backend environment set up and the initial database schema design.
+
+- Does the team have any blockers?
+  No blockers, but ensuring alignment on database structure and backend configurations.
 
