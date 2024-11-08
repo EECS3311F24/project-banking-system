@@ -44,6 +44,9 @@ public class AccountService {
     }
     
     public boolean changeBalance(UUID aID, String typeOfTransaction, double amount) {
+    	final double MINUMUM_BALANCE = 0;
+    	if (getAccountFromID(aID).getAccountBalance() - amount < MINUMUM_BALANCE) return false;
+    	
     	return accountDAO.changeBalance(aID, typeOfTransaction, amount);
     }
     

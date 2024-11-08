@@ -70,8 +70,6 @@ public class LocalAccountDataAccessService implements AccountDAO{
 
 	@Override
 	public boolean changeBalance(UUID aID, String typeOfTransaction, double amount) {
-		final double MINUMUM_BALANCE = 0;
-		
 		Account account = getAccountFromID(aID);
 		
 		if (account == null) return false;
@@ -84,7 +82,6 @@ public class LocalAccountDataAccessService implements AccountDAO{
 		} 
 		
 		else if (typeOfTransaction.equals("withdraw")) {
-			if (account.getAccountBalance() - amount < MINUMUM_BALANCE) return false;
 			account.setAccountBalance(account.getAccountBalance() - amount);
 			transactionDB.add(new Transaction(aID, typeOfTransaction, amount));
 			return true;
