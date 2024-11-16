@@ -3,7 +3,7 @@ package bankingSystemBackend.service;
 import java.util.List;
 import java.util.UUID;
 
-import bankingSystemBackend.dao.CustomerInfoDAO;
+import bankingSystemBackend.dao.daos.CustomerInfoDAO;
 import bankingSystemBackend.model.CustomerInfo;
 
 public class CustomerInfoService {

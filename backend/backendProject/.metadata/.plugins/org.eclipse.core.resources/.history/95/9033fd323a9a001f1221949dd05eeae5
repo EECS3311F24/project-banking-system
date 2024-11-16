@@ -1,5 +1,0 @@
-package bankingSystemBackend.model;
-
-public class Transaction {
-
-}

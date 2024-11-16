@@ -1,0 +1,182 @@
+package bankingSystemBackend.api;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+import bankingSystemBackend.model.Account;
+import bankingSystemBackend.model.Transaction;
+import bankingSystemBackend.service.AccountService;
+import bankingSystemBackend.utils.Utils;
+
+public class AccountController implements HttpHandler{
+	private static AccountService accountService;
+	
+	public AccountController(AccountService accountService) {
+		this.accountService = accountService;
+	}
+	
+	@Override
+	public void handle(HttpExchange exchange) throws IOException {
+		try {
+            if (exchange.getRequestMethod().equals("POST")){
+                handlePost(exchange);
+            } else if (exchange.getRequestMethod().equals("GET")){ 
+                handleGet(exchange);
+            } else if (exchange.getRequestMethod().equals("PUT")){
+                handlePut(exchange);
+            } else if (exchange.getRequestMethod().equals("DELETE")){
+                handleDelete(exchange);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		
+	}
+
+	private void handlePost(HttpExchange exchange) throws IOException, JSONException{
+		String body = Utils.convert(exchange.getRequestBody());
+        JSONObject deserialized = new JSONObject(body);
+        
+        if (!deserialized.has("customerID")) {
+        	exchange.sendResponseHeaders(400, -1);
+        	return;
+        }
+        
+        if (deserialized.has("accountID")) { // move this to AccountOwnersController
+        	// do assign customer to existing account
+        	 if (accountService.insertAccountConnection(
+        			 UUID.fromString(deserialized.getString("accountID")), 
+        			 UUID.fromString(deserialized.getString("customerID")))) 
+        	 {
+        		 exchange.sendResponseHeaders(200, -1);
+        		 return;
+        	 }
+        	 exchange.sendResponseHeaders(400, -1);
+        } else {
+        	// create new account assigned to cID
+        	if (accountService.addAccount(UUID.fromString(deserialized.getString("customerID"))))
+        		exchange.sendResponseHeaders(201, -1);
+        	else {
+        		exchange.sendResponseHeaders(400, -1);
+        	}
+        }
+	}
+
+	private void handleGet(HttpExchange exchange) throws IOException, JSONException{
+		String body = Utils.convert(exchange.getRequestBody());
+        JSONObject deserialized = new JSONObject(body);
+        String response = "";
+		
+        if (!deserialized.has("type")) {
+        	exchange.sendResponseHeaders(400, -1);
+        	return;
+        }
+        
+        if (deserialized.get("type").equals("account") && deserialized.has("accountID")) { // get account from ID   	
+        	Account account = accountService.getAccountFromID(UUID.fromString(deserialized.getString("accountID")));
+        	
+        	response = new JSONObject()
+        			.put("accountID", account.getAccountID())
+        			.put("accountBalance", account.getAccountBalance())
+        			.toString();
+        	
+        } else if (deserialized.get("type").equals("accountIDs") && deserialized.has("customerID")) { // move to AccountOwnersController
+        	List<UUID> ids = accountService.getAccountIDsFromCustomerID(UUID.fromString(deserialized.getString("customerID")));
+        	
+        	List<JSONObject> jsonList = new ArrayList<>();
+        	for(UUID id : ids) {
+        		jsonList.add(new JSONObject().put("accountID", id));
+        	}
+        	
+        	response = jsonList.toString();
+        	
+        } else if (deserialized.get("type").equals("customerIDs") && deserialized.has("accountID")) { // move to AccountOwnersController
+        	List<UUID> ids = accountService.getCustomerIDsFromAccountID(UUID.fromString(deserialized.getString("accountID")));
+        	
+        	List<JSONObject> jsonList = new ArrayList<>();
+        	for(UUID id : ids) {
+        		jsonList.add(new JSONObject().put("customerID", id));
+        	}
+        	response = jsonList.toString();
+        	
+        } else if (deserialized.get("type").equals("transactions") && deserialized.has("accountID")) { // move to TransactionsController
+        	List<Transaction> transactions = accountService.getTransactionsFromAccountID(UUID.fromString(deserialized.getString("accountID")));
+        	
+        	List<JSONObject> jsonList = new ArrayList<>();
+        	for(Transaction transaction : transactions) {
+        		jsonList.add(new JSONObject()
+        				.put("accountID", transaction.getAID())
+        				.put("transactionType", transaction.getTransactionType())
+        				.put("amount", transaction.getAmount())
+        				.put("date", transaction.getDate()));
+        	}
+        	response = jsonList.toString();
+        } else {
+        	exchange.sendResponseHeaders(400, -1);
+        	return;
+        }
+        
+        exchange.sendResponseHeaders(200, response.length());
+    	OutputStream os = exchange.getResponseBody();
+    	os.write(response.getBytes());
+    	os.close();
+	}
+
+	private void handlePut(HttpExchange exchange) throws IOException, JSONException{
+		String body = Utils.convert(exchange.getRequestBody());
+        JSONObject deserialized = new JSONObject(body);
+        
+        if (!deserialized.has("accountID") || !deserialized.has("transactionType") || !deserialized.has("amount")) {
+        	exchange.sendResponseHeaders(400, -1);
+        	return;
+        }
+        
+        if (accountService.changeBalance(
+        		UUID.fromString(deserialized.getString("accountID")), 
+        		deserialized.getString("transactionType"), 
+        		deserialized.getDouble("amount"))) 
+        {
+        	exchange.sendResponseHeaders(200, -1);
+        	return;
+        }
+        exchange.sendResponseHeaders(400, -1);
+	}
+
+	private void handleDelete(HttpExchange exchange) throws IOException, JSONException{
+		String body = Utils.convert(exchange.getRequestBody());
+        JSONObject deserialized = new JSONObject(body);
+        
+        if (!deserialized.has("accountID")) {
+        	exchange.sendResponseHeaders(400, -1);
+        	return;
+        }
+        
+        if (deserialized.has("customerID")) { // delete account-customer connection; move to AccountConnectionController
+        	if (accountService.removeAssociatedCustomerFromAccount(
+        			UUID.fromString(deserialized.getString("accountID")),
+        			UUID.fromString(deserialized.getString("customerID"))))
+        	{
+        		exchange.sendResponseHeaders(200, -1);
+        		return;
+        	}
+        	exchange.sendResponseHeaders(400, -1);
+        	return;
+        }
+        
+        // delete account (only has accountID in request body)
+        if (accountService.removeAccount(UUID.fromString(deserialized.getString("accountID")))) {
+        	exchange.sendResponseHeaders(200, -1);
+    		return;
+        }
+        exchange.sendResponseHeaders(400, -1);
+	}
+}

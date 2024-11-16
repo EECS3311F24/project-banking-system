@@ -2,16 +2,25 @@
 <qualifiedTypeNameHistroy>
     <fullyQualifiedTypeName name="org.json.JSONStringer"/>
     <fullyQualifiedTypeName name="java.io.OutputStream"/>
-    <fullyQualifiedTypeName name="bankingSystemBackend.model.CustomerInfo"/>
     <fullyQualifiedTypeName name="java.util.Date"/>
-    <fullyQualifiedTypeName name="bankingSystemBackend.model.AccountOwners"/>
     <fullyQualifiedTypeName name="bankingSystemBackend.dao.AccountDAO"/>
-    <fullyQualifiedTypeName name="java.util.UUID"/>
     <fullyQualifiedTypeName name="bankingSystemBackend.model.Account"/>
     <fullyQualifiedTypeName name="java.util.List"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="bankingSystemBackend.model.Transaction"/>
     <fullyQualifiedTypeName name="bankingSystemBackend.dao.LocalAccountDataAccessService"/>
     <fullyQualifiedTypeName name="bankingSystemBackend.service.AccountService"/>
     <fullyQualifiedTypeName name="bankingSystemBackend.api.AccountController"/>
+    <fullyQualifiedTypeName name="java.util.UUID"/>
+    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
+    <fullyQualifiedTypeName name="bankingSystemBackend.model.CustomerInfo"/>
+    <fullyQualifiedTypeName name="bankingSystemBackend.model.AccountOwners"/>
+    <fullyQualifiedTypeName name="bankingSystemBackend.dao.daos.AccountOwnersDAO"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="bankingSystemBackend.dao.daos.TransactionDAO"/>
+    <fullyQualifiedTypeName name="bankingSystemBackend.api.AccountOwnersController"/>
+    <fullyQualifiedTypeName name="bankingSystemBackend.service.AccountOwnersService"/>
+    <fullyQualifiedTypeName name="bankingSystemBackend.dao.local.LocalAccountOwnersDataAccessService"/>
+    <fullyQualifiedTypeName name="bankingSystemBackend.api.TransactionController"/>
+    <fullyQualifiedTypeName name="bankingSystemBackend.service.TransactionService"/>
+    <fullyQualifiedTypeName name="bankingSystemBackend.dao.local.LocalTransactionDataAccessService"/>
 </qualifiedTypeNameHistroy>

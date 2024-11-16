@@ -5,11 +5,17 @@ import java.net.InetSocketAddress;
 import com.sun.net.httpserver.*;
 
 import bankingSystemBackend.api.AccountController;
+import bankingSystemBackend.api.AccountOwnersController;
 import bankingSystemBackend.api.CustomerInfoController;
-import bankingSystemBackend.dao.LocalAccountDataAccessService;
-import bankingSystemBackend.dao.LocalCustomerInfoDataAccessService;
+import bankingSystemBackend.api.TransactionController;
+import bankingSystemBackend.dao.local.LocalAccountDataAccessService;
+import bankingSystemBackend.dao.local.LocalAccountOwnersDataAccessService;
+import bankingSystemBackend.dao.local.LocalCustomerInfoDataAccessService;
+import bankingSystemBackend.dao.local.LocalTransactionDataAccessService;
+import bankingSystemBackend.service.AccountOwnersService;
 import bankingSystemBackend.service.AccountService;
 import bankingSystemBackend.service.CustomerInfoService;
+import bankingSystemBackend.service.TransactionService;
 
 class Backend{
     static int PORT = 8080;
@@ -18,18 +24,29 @@ class Backend{
 
         // initilize apis
 
-        CustomerInfoService    customerInfoService = new CustomerInfoService(new LocalCustomerInfoDataAccessService());
-        CustomerInfoController customerInfoController = new CustomerInfoController(customerInfoService);
+        CustomerInfoController customerInfoController = new CustomerInfoController(
+        		new CustomerInfoService(
+        				new LocalCustomerInfoDataAccessService()));
         
         server.createContext("/api/customerInfo", customerInfoController);
         
         AccountController accountController = new AccountController(
         			new AccountService(
-        						new LocalAccountDataAccessService()
-        					)
-        		);
+        						new LocalAccountDataAccessService()));
 
         server.createContext("/api/account", accountController);
+        
+        AccountOwnersController accountOwnersController = new AccountOwnersController(
+        		new AccountOwnersService(
+        				new LocalAccountOwnersDataAccessService()));
+        
+        server.createContext("/api/accountOwners", accountOwnersController);
+        
+        TransactionController transactionController = new TransactionController(
+        		new TransactionService(
+        				new LocalTransactionDataAccessService()));
+        
+        server.createContext("/api/transaction", transactionController);
         
         server.start();
         System.out.printf("Server started on port %d...\n", PORT);

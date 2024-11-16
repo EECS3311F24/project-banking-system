@@ -1,0 +1,11 @@
+package bankingSystemBackend.service;
+
+import bankingSystemBackend.dao.daos.TransactionDAO;
+
+public class TransactionService {
+	private final TransactionDAO transactionDAO;
+	
+	public TransactionService(TransactionDAO transactionDAO) {
+		this.transactionDAO = transactionDAO;
+	}
+}

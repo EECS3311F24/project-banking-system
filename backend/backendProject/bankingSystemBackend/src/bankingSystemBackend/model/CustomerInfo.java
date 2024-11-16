@@ -5,12 +5,14 @@ import java.util.UUID;
 public class CustomerInfo {
     private final UUID customerID;
     private final String email;
+    private String name; // add this column
     private String password;
     private String mobileNum;
     private String address;
 
-    public CustomerInfo(UUID id, String mail, String pass, String mobileNum, String address){
+    public CustomerInfo(UUID id, String name, String mail, String pass, String mobileNum, String address){
         this.customerID = id;
+        this.name = name;
         this.email = mail;
         this.password = pass;
         this.mobileNum = mobileNum;
@@ -24,6 +26,10 @@ public class CustomerInfo {
     public String getEmail() {
         return email;
     }
+    
+    public String getName() {
+    	return name;
+    }
 
     public String getPassword() {
         return password;
@@ -35,6 +41,10 @@ public class CustomerInfo {
 
     public String getAddress() {
         return address;
+    }
+    
+    public void setName(String name) {
+    	this.name = name;
     }
     
     public void setPassword(String password) {

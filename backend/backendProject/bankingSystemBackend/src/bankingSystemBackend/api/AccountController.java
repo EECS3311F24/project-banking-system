@@ -51,75 +51,28 @@ public class AccountController implements HttpHandler{
         	return;
         }
         
-        if (deserialized.has("accountID")) {
-        	// do assign customer to existing account
-        	 if (accountService.insertAccountConnection(
-        			 UUID.fromString(deserialized.getString("accountID")), 
-        			 UUID.fromString(deserialized.getString("customerID")))) 
-        	 {
-        		 exchange.sendResponseHeaders(200, -1);
-        		 return;
-        	 }
-        	 exchange.sendResponseHeaders(400, -1);
-        } else {
         	// create new account assigned to cID
         	if (accountService.addAccount(UUID.fromString(deserialized.getString("customerID"))))
         		exchange.sendResponseHeaders(201, -1);
         	else {
         		exchange.sendResponseHeaders(400, -1);
         	}
-        }
 	}
 
 	private void handleGet(HttpExchange exchange) throws IOException, JSONException{
 		String body = Utils.convert(exchange.getRequestBody());
         JSONObject deserialized = new JSONObject(body);
         String response = "";
-		
-        if (!deserialized.has("type")) {
-        	exchange.sendResponseHeaders(400, -1);
-        	return;
-        }
         
-        if (deserialized.get("type").equals("account") && deserialized.has("accountID")) {        	
+        if (deserialized.has("accountID")) { // get account from ID   	
         	Account account = accountService.getAccountFromID(UUID.fromString(deserialized.getString("accountID")));
         	
         	response = new JSONObject()
         			.put("accountID", account.getAccountID())
         			.put("accountBalance", account.getAccountBalance())
+        			.put("locked", account.isLocked())
         			.toString();
         	
-        } else if (deserialized.get("type").equals("accountIDs") && deserialized.has("customerID")) {
-        	List<UUID> ids = accountService.getAccountIDsFromCustomerID(UUID.fromString(deserialized.getString("customerID")));
-        	
-        	List<JSONObject> jsonList = new ArrayList<>();
-        	for(UUID id : ids) {
-        		jsonList.add(new JSONObject().put("accountID", id));
-        	}
-        	
-        	response = jsonList.toString();
-        	
-        } else if (deserialized.get("type").equals("customerIDs") && deserialized.has("accountID")) {
-        	List<UUID> ids = accountService.getCustomerIDsFromAccountID(UUID.fromString(deserialized.getString("accountID")));
-        	
-        	List<JSONObject> jsonList = new ArrayList<>();
-        	for(UUID id : ids) {
-        		jsonList.add(new JSONObject().put("customerID", id));
-        	}
-        	response = jsonList.toString();
-        	
-        } else if (deserialized.get("type").equals("transactions") && deserialized.has("accountID")) {
-        	List<Transaction> transactions = accountService.getTransactionsFromAccountID(UUID.fromString(deserialized.getString("accountID")));
-        	
-        	List<JSONObject> jsonList = new ArrayList<>();
-        	for(Transaction transaction : transactions) {
-        		jsonList.add(new JSONObject()
-        				.put("accountID", transaction.getAID())
-        				.put("transactionType", transaction.getTransactionType())
-        				.put("amount", transaction.getAmount())
-        				.put("date", transaction.getDate()));
-        	}
-        	response = jsonList.toString();
         } else {
         	exchange.sendResponseHeaders(400, -1);
         	return;
@@ -135,14 +88,23 @@ public class AccountController implements HttpHandler{
 		String body = Utils.convert(exchange.getRequestBody());
         JSONObject deserialized = new JSONObject(body);
         
-        if (!deserialized.has("accountID") || !deserialized.has("transactionType") || !deserialized.has("amount")) {
+        // only process response if inputed aID and type of put
+        if (!deserialized.has("accountID") || !deserialized.has("type")) {
         	exchange.sendResponseHeaders(400, -1);
         	return;
         }
         
-        if (accountService.changeBalance(
+        // toggle lock
+        if (deserialized.getString("type").equals("toggleLock")) {
+        	accountService.toggleLocked(UUID.fromString(deserialized.getString("accountID")));
+        	exchange.sendResponseHeaders(200, -1);
+        	return;
+        }
+        
+        // do a transaction
+        if (deserialized.has("amount") && accountService.changeBalance(
         		UUID.fromString(deserialized.getString("accountID")), 
-        		deserialized.getString("transactionType"), 
+        		deserialized.getString("type"), 
         		deserialized.getDouble("amount"))) 
         {
         	exchange.sendResponseHeaders(200, -1);
@@ -156,18 +118,6 @@ public class AccountController implements HttpHandler{
         JSONObject deserialized = new JSONObject(body);
         
         if (!deserialized.has("accountID")) {
-        	exchange.sendResponseHeaders(400, -1);
-        	return;
-        }
-        
-        if (deserialized.has("customerID")) { // delete account-customer connection
-        	if (accountService.removeAssociatedCustomerFromAccount(
-        			UUID.fromString(deserialized.getString("accountID")),
-        			UUID.fromString(deserialized.getString("customerID"))))
-        	{
-        		exchange.sendResponseHeaders(200, -1);
-        		return;
-        	}
         	exchange.sendResponseHeaders(400, -1);
         	return;
         }

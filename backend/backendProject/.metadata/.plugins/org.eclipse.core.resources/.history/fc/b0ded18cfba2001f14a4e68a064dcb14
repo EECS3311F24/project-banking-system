@@ -1,0 +1,20 @@
+package bankingSystemBackend.api;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+public class TransactionController implements HttpHandler{
+	
+	@Override
+	public void handle(HttpExchange r){ // no put or delete request
+        try {
+            if (r.getRequestMethod().equals("POST")){
+                handlePost(r);
+            } else if (r.getRequestMethod().equals("GET")){ 
+                handleGet(r);
+            } 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

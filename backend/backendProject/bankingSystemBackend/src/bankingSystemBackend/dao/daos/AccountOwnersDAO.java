@@ -1,0 +1,13 @@
+package bankingSystemBackend.dao.daos;
+
+import java.util.List;
+import java.util.UUID;
+
+public interface AccountOwnersDAO {
+	boolean insertAccountConnection(UUID cID, UUID aID);
+	
+    List<UUID> getAccountIDsFromCustomerID(UUID cID);
+    List<UUID> getCustomerIDsFromAccountID(UUID aID);
+    
+    boolean removeAssociatedCustomerFromAccount(UUID cID, UUID aID);
+}

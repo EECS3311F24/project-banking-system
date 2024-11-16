@@ -42,7 +42,8 @@ public class CustomerInfoController implements HttpHandler{
         String body = Utils.convert(r.getRequestBody());
         JSONObject deserialized = new JSONObject(body);
         
-        if (!deserialized.has("customerMail") || 
+        if (!deserialized.has("customerName") ||
+        	!deserialized.has("customerMail") || 
         	!deserialized.has("customerPass") ||
         	!deserialized.has("customerMobileNum") ||
         	!deserialized.has("customerAddress")) 
@@ -54,6 +55,7 @@ public class CustomerInfoController implements HttpHandler{
         customerInfoService.addCustomerInfo(
         		new CustomerInfo(
         			null, 
+        			deserialized.getString("customerName"), 
         			deserialized.getString("customerMail"), 
         			deserialized.getString("customerPass"), 
         			deserialized.getString("customerMobileNum"), 

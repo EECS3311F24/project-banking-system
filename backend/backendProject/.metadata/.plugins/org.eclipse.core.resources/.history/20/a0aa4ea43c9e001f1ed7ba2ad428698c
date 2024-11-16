@@ -1,0 +1,14 @@
+package bankingSystemBackend.dao;
+
+import java.io.*;
+import java.sql.*;
+
+public class SQLAccountDataAccessService {
+	public static void main(String[] args) throws SQLException, IOException{
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (ClassNotFOundException x){
+			System.out.println("Driver couldn't be loaded");
+		}
+	}
+}

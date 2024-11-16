@@ -1,5 +1,0 @@
-package bankingSystemBackend.api;
-
-public class AccountController {
-
-}

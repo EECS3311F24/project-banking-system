@@ -3,7 +3,7 @@ package bankingSystemBackend.service;
 import java.util.List;
 import java.util.UUID;
 
-import bankingSystemBackend.dao.AccountDAO;
+import bankingSystemBackend.dao.daos.AccountDAO;
 import bankingSystemBackend.model.Account;
 import bankingSystemBackend.model.CustomerInfo;
 import bankingSystemBackend.model.Transaction;
@@ -22,25 +22,9 @@ public class AccountService {
 	public boolean insertAccount(UUID id, double amount) { // help method
 		return accountDAO.insertAccount(id, amount);
 	}
-	
-    public boolean insertAccountConnection(UUID aID, UUID cID) {
-    	return accountDAO.insertAccountConnection(aID, cID);
-    }
     
     public Account getAccountFromID(UUID aID) {
     	return accountDAO.getAccountFromID(aID);
-    }
-    
-    public List<UUID> getAccountIDsFromCustomerID(UUID cID){
-    	return accountDAO.getAccountIDsFromCustomerID(cID);
-    }
-    
-    public List<UUID> getCustomerIDsFromAccountID(UUID aID){
-    	return accountDAO.getCustomerIDsFromAccountID(aID);
-    }
-    
-    public List<Transaction> getTransactionsFromAccountID(UUID aID){
-    	return accountDAO.getTransactionsFromAccountID(aID);
     }
     
     public boolean changeBalance(UUID aID, String typeOfTransaction, double amount) {
@@ -50,9 +34,10 @@ public class AccountService {
     	return accountDAO.changeBalance(aID, typeOfTransaction, amount);
     }
     
-    public boolean removeAssociatedCustomerFromAccount(UUID aID, UUID cID) {
-    	return accountDAO.removeAssociatedCustomerFromAccount(aID, cID);
+    public void toggleLocked(UUID aID) {
+    	accountDAO.toggleLocked(aID);
     }
+    
     
     public boolean removeAccount(UUID aID) {
     	return accountDAO.removeAccount(aID);
