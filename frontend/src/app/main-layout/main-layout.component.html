@@ -1,0 +1,55 @@
+
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav mode="side" opened class="sidenav">
+      <h3 class="sidenav-title">E-<span class="highlight">Banking</span></h3>
+      <mat-nav-list>
+        <mat-list-item routerLink="/dashboard">
+          <mat-icon>dashboard</mat-icon>
+          <span>Dashboard</span>
+        </mat-list-item>
+        <mat-list-item routerLink="/dashboard/deposit">
+          <mat-icon>download</mat-icon>
+          <span>Deposit</span>
+        </mat-list-item>
+        <mat-list-item routerLink="/dashboard/withdraw">
+          <mat-icon>upload</mat-icon>
+          <span>Withdraw</span>
+        </mat-list-item>
+        <mat-list-item routerLink="/send">
+          <mat-icon>send</mat-icon>
+          <span>Send</span>
+        </mat-list-item>
+        <mat-list-item routerLink="/bank-card">
+          <mat-icon>credit_card</mat-icon>
+          <span>Bank Card</span>
+        </mat-list-item>
+        <mat-list-item routerLink="/transactions">
+          <mat-icon>receipt</mat-icon>
+          <span>Transactions</span>
+        </mat-list-item>
+        <mat-list-item routerLink="/settings">
+          <mat-icon>settings</mat-icon>
+          <span>Settings</span>
+        </mat-list-item>
+        <mat-list-item routerLink="/contact">
+          <mat-icon>contact_support</mat-icon>
+          <span>Contact Us</span>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+  
+    <mat-sidenav-content>
+      <mat-toolbar color="primary" class="toolbar">
+        <ng-container *ngIf="isDashboard">
+          <span>Welcome to Dashboard</span>
+        </ng-container>
+        <span class="spacer"></span>
+        <span>Hello, User</span>
+        <div class="logout-container" (click)="onLogout()">
+          <mat-icon class="logout-icon">logout</mat-icon>
+        </div>
+      </mat-toolbar>
+      <router-outlet></router-outlet> <!-- Routed components will load here -->
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  

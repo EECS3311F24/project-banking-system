@@ -1,0 +1,24 @@
+<div class="login-container">
+    <mat-card class="login-card">
+      <h2><span class="highlight">E-</span>Banking</h2>
+      <p>Welcome! Log in to your account.</p>
+      <div class="form-container">
+        <form>
+          <mat-form-field appearance="outline" class="textbox">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" placeholder="email" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" placeholder="password" />
+          </mat-form-field>
+          <button mat-raised-button color="primary" class="login-button" (click)="onLogin()">Login</button>
+        </form>
+      </div>
+      <div class="extra-links">
+        <a href="#">Forget password</a>
+        <p>Don't have an account? <a href="#">Sign up here</a></p>
+      </div>
+    </mat-card>
+  </div>
+  

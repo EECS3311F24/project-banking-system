@@ -1,0 +1,25 @@
+.dashboard-content {
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem;
+  }
+  
+  .balance-card,
+  .activity-card {
+    width: 45%;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .balance-card h4,
+  .activity-card h4 {
+    margin: 0;
+    color: #6200ea;
+  }
+  
+  .balance-card p {
+    font-size: 2rem;
+    margin-top: 1rem;
+  }
+  
