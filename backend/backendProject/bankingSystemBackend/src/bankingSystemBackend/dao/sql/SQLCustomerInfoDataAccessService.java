@@ -76,7 +76,8 @@ public class SQLCustomerInfoDataAccessService implements CustomerInfoDAO{
 					r.getString(2),
 					r.getString(3),
 					r.getString(4),
-					r.getString(5));
+					r.getString(5),
+					r.getString(6));
 			
 			return customer;
 		} catch (SQLException ex) {

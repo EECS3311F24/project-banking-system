@@ -56,6 +56,12 @@ public class SQLAccountDataAccessService implements AccountDAO{ // unfinished
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public void toggleLocked(UUID aID) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	
