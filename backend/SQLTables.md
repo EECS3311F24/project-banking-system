@@ -51,3 +51,14 @@ CREATE TABLE Transactions(
     PRIMARY KEY (accountNo, transactionDate)
 );
 ```
+
+## Loans
+``` SQL
+CREATE TABLE Loans(
+    loanID      INT PRIMARY KEY AUTO_INCREMENT,
+    customerID  INT,
+    amount      FLOAT, 
+    rate        FLOAT,
+    duration    DATE,
+);
+```
