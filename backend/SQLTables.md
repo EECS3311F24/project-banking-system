@@ -3,6 +3,7 @@
 ``` SQL
 CREATE TABLE CustomerInfo(
     customerID          INT PRIMARY KEY AUTO_INCREMENT,
+    customerName        VARCHAR(20),
     customerMail        VARCHAR(25) UNIQUE,
     customerPass        VARCHAR(20),
     customerMobileNum   VARCHAR(10),
