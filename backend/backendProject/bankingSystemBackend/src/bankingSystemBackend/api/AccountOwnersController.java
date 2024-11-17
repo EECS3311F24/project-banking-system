@@ -69,7 +69,7 @@ public class AccountOwnersController implements HttpHandler{
         	return;
         }
         
-        if (deserialized.has("customerID")) { // move to AccountOwnersController
+        if (deserialized.has("customerID")) { 
         	List<UUID> ids = accountOwnersService.getAccountIDsFromCustomerID(UUID.fromString(deserialized.getString("customerID")));
         	
         	List<JSONObject> jsonList = new ArrayList<>();
@@ -79,7 +79,7 @@ public class AccountOwnersController implements HttpHandler{
         	
         	response = jsonList.toString();
         	
-        } else if (deserialized.has("accountID")) { // move to AccountOwnersController
+        } else if (deserialized.has("accountID")) { 
         	List<UUID> ids = accountOwnersService.getCustomerIDsFromAccountID(UUID.fromString(deserialized.getString("accountID")));
         	
         	List<JSONObject> jsonList = new ArrayList<>();

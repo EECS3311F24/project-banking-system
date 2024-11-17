@@ -15,16 +15,20 @@ public class AccountService {
 		this.accountDAO = accountDAO;
 	}
 	
-	public boolean addAccount(UUID cID) {
-		return accountDAO.addAccount(cID);
+	public boolean addAccount(UUID cID, String name) {
+		return accountDAO.addAccount(cID, name);
 	}
 	
-	public boolean insertAccount(UUID id, double amount) { // help method
-		return accountDAO.insertAccount(id, amount);
+	public boolean insertAccount(UUID id, String name, double amount) { // help method
+		return accountDAO.insertAccount(id, name, amount);
 	}
     
     public Account getAccountFromID(UUID aID) {
     	return accountDAO.getAccountFromID(aID);
+    }
+    
+    public void changeName(UUID aID, String name) {
+    	accountDAO.changeName(aID, name);
     }
     
     public boolean changeBalance(UUID aID, String typeOfTransaction, double amount) {
@@ -37,7 +41,6 @@ public class AccountService {
     public void toggleLocked(UUID aID) {
     	accountDAO.toggleLocked(aID);
     }
-    
     
     public boolean removeAccount(UUID aID) {
     	return accountDAO.removeAccount(aID);

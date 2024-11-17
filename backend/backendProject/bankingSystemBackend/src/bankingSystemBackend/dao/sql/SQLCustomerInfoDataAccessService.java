@@ -5,28 +5,20 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import bankingSystemBackend.dao.daos.CustomerInfoDAO;
 import bankingSystemBackend.model.CustomerInfo;
+import bankingSystemBackend.utils.Utils;
 
 public class SQLCustomerInfoDataAccessService implements CustomerInfoDAO{
-	static String dbLink = "mysql-bankingsystem.alwaysdata.net";
-	static String dbaccount = "383193_backend";
-	static String password = "BankSys3311";
 	
 	@Override
 	public boolean insertCustomerInfo(UUID id, CustomerInfo customer) {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException x){
-			System.out.println("Driver couldn't be loaded");
-			return false;
-		}
-		
-		try {
-			Connection conn = DriverManager.getConnection("jdbc:mysql://" + dbLink, dbaccount, password);
+			Connection conn = Utils.getDBConnection();
 			Statement stmt = conn.createStatement();
 			
 			String sql = String.format(
@@ -49,21 +41,39 @@ public class SQLCustomerInfoDataAccessService implements CustomerInfoDAO{
 
 	@Override
 	public List<CustomerInfo> getAllCustomerInfo() {
-		// TODO Auto-generated method stub
-		return null;
+		List<CustomerInfo> info = new ArrayList<>();
+		
+		try {
+			Connection conn = Utils.getDBConnection();
+			Statement stmt = conn.createStatement();
+			
+			String sql = "SELECT * FROM CustomerInfo";
+			ResultSet r = stmt.executeQuery(sql);
+			
+			while (r.next()) {
+				info.add(new CustomerInfo(
+					UUID.fromString((String) r.getObject(1)),
+					r.getString(2),
+					r.getString(3),
+					r.getString(4),
+					r.getString(5),
+					r.getString(6)));
+			}
+			return info;
+		} catch (SQLException ex) {
+			// handle any errors
+		    System.out.println("SQLException: " + ex.getMessage());
+		    System.out.println("SQLState: " + ex.getSQLState());
+		    System.out.println("VendorError: " + ex.getErrorCode());
+		    return null;
+		}
+		
 	}
 
 	@Override
 	public CustomerInfo getCustomerInfoFromMailAndPass(String mail, String pass) {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException x){
-			System.out.println("Driver couldn't be loaded");
-			return null;
-		}
-		
-		try {
-			Connection conn = DriverManager.getConnection("jdbc:mysql://" + dbLink, dbaccount, password);
+			Connection conn = Utils.getDBConnection();
 			Statement stmt = conn.createStatement();
 			
 			String sql = String.format("SELECT FROM CustomerInfo WHERE customerMail = %s AND customerPass = %s", mail, pass);
@@ -96,7 +106,7 @@ public class SQLCustomerInfoDataAccessService implements CustomerInfoDAO{
 	}
 
 	@Override
-	public boolean changeCustomerInfo(UUID customerID, String newPassword, String newMobileNumber, String newAddress) {
+	public boolean changeCustomerInfo(UUID customerID, String newName, String newPassword, String newMobileNumber, String newAddress) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -106,5 +116,4 @@ public class SQLCustomerInfoDataAccessService implements CustomerInfoDAO{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }

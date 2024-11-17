@@ -14,7 +14,7 @@ public interface CustomerInfoDAO {
     
     CustomerInfo getCustomerInfoFromID(UUID customerID);
 
-    boolean changeCustomerInfo(UUID customerID, String newPassword, String newMobileNumber, String newAddress);
+    boolean changeCustomerInfo(UUID customerID, String newName, String newPassword, String newMobileNumber, String newAddress);
     
     boolean removeCustomer(UUID customerID);
 

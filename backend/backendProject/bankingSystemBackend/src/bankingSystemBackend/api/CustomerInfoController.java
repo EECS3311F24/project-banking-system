@@ -124,15 +124,18 @@ public class CustomerInfoController implements HttpHandler{
     	String body = Utils.convert(r.getRequestBody());
         JSONObject deserialized = new JSONObject(body);
         
+        String newName = null;
         String newPassword = null;
         String newMobileNum = null;
         String newAddress = null;
         
+        if (deserialized.has("newName")) newName = deserialized.getString("newName");
         if (deserialized.has("newPassword")) newPassword = deserialized.getString("newPassword");
         if (deserialized.has("newMobileNum")) newMobileNum = deserialized.getString("newMobileNum");
         if (deserialized.has("newAddress")) newAddress = deserialized.getString("newAddress");
         
          if (customerInfoService.changeCustomerInfo(UUID.fromString((String) deserialized.get("customerID")),
+        		 									newName,
         		 									newPassword, 
         		 									newMobileNum, 
         		 									newAddress)) 

@@ -10,6 +10,10 @@ import bankingSystemBackend.model.CustomerInfo;
 public class LocalCustomerInfoDataAccessService implements CustomerInfoDAO {
 
     private static List<CustomerInfo> DB = new ArrayList<>();
+    
+    public LocalCustomerInfoDataAccessService() {
+    	DB.add(new CustomerInfo(UUID.randomUUID(), "testName", "test@test.com", "testPass", "0123456789", "123 Test Lane"));
+    }
 
     @Override
     public boolean insertCustomerInfo(UUID id, CustomerInfo customer) {
@@ -45,11 +49,12 @@ public class LocalCustomerInfoDataAccessService implements CustomerInfoDAO {
 	}
 
 	@Override
-	public boolean changeCustomerInfo(UUID customerID, String newPassword, String newMobileNumber,
+	public boolean changeCustomerInfo(UUID customerID, String newName, String newPassword, String newMobileNumber,
 			String newAddress) {
 		CustomerInfo customer = getCustomerInfoFromID(customerID);
 		if (customer == null) return false;
 		
+		if (newName != null) customer.setName(newName);
 		if (newPassword != null) customer.setPassword(newPassword);
 		if (newMobileNumber != null) customer.setMobileNum(newMobileNumber);
 		if (newAddress != null) customer.setAddress(newAddress);

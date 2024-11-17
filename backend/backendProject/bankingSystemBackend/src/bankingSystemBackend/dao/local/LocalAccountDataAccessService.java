@@ -14,8 +14,8 @@ public class LocalAccountDataAccessService implements AccountDAO{
 	private static List<Account> accountDB = new ArrayList<>();
 
 	@Override
-	public boolean insertAccount(UUID id, double amount) {
-		return accountDB.add(new Account(id, amount, false));
+	public boolean insertAccount(UUID id, String name, double amount) {
+		return accountDB.add(new Account(id, name, amount, false));
 	}
 
 
@@ -62,5 +62,12 @@ public class LocalAccountDataAccessService implements AccountDAO{
 	public void toggleLocked(UUID aID) {
 		Account account = getAccountFromID(aID);
 		account.toggleLock();
+	}
+
+
+	@Override
+	public void changeName(UUID aID, String newName) {
+		Account account = getAccountFromID(aID);
+		account.setAccountName(newName);
 	}
 }

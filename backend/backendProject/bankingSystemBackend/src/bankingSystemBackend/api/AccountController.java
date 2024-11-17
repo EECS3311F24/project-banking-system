@@ -46,13 +46,13 @@ public class AccountController implements HttpHandler{
 		String body = Utils.convert(exchange.getRequestBody());
         JSONObject deserialized = new JSONObject(body);
         
-        if (!deserialized.has("customerID")) {
+        if (!deserialized.has("customerID") || !deserialized.has("accountName")) {
         	exchange.sendResponseHeaders(400, -1);
         	return;
         }
         
         	// create new account assigned to cID
-        	if (accountService.addAccount(UUID.fromString(deserialized.getString("customerID"))))
+        	if (accountService.addAccount(UUID.fromString(deserialized.getString("customerID")), deserialized.getString("accountName")))
         		exchange.sendResponseHeaders(201, -1);
         	else {
         		exchange.sendResponseHeaders(400, -1);
@@ -69,6 +69,7 @@ public class AccountController implements HttpHandler{
         	
         	response = new JSONObject()
         			.put("accountID", account.getAccountID())
+        			.put("accountName", account.getAccountName())
         			.put("accountBalance", account.getAccountBalance())
         			.put("locked", account.isLocked())
         			.toString();
@@ -84,7 +85,7 @@ public class AccountController implements HttpHandler{
     	os.close();
 	}
 
-	private void handlePut(HttpExchange exchange) throws IOException, JSONException{
+	private void handlePut(HttpExchange exchange) throws IOException, JSONException{ // add setName
 		String body = Utils.convert(exchange.getRequestBody());
         JSONObject deserialized = new JSONObject(body);
         
@@ -92,6 +93,11 @@ public class AccountController implements HttpHandler{
         if (!deserialized.has("accountID") || !deserialized.has("type")) {
         	exchange.sendResponseHeaders(400, -1);
         	return;
+        }
+        
+        // change name
+        if (deserialized.getString("type").equals("changeName") && deserialized.has("newName")) {
+        	accountService.changeName(UUID.fromString(deserialized.getString("accountID")), deserialized.getString("newName"));
         }
         
         // toggle lock

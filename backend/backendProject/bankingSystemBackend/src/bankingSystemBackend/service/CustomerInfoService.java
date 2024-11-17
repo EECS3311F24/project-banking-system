@@ -25,8 +25,8 @@ public class CustomerInfoService {
     	return customerInfoDAO.getCustomerInfoFromID(id);
     }
     
-    public boolean changeCustomerInfo(UUID customerID, String newPassword, String newMobileNum, String newAddress) {
-    	return customerInfoDAO.changeCustomerInfo(customerID, newPassword, newMobileNum, newAddress);
+    public boolean changeCustomerInfo(UUID customerID, String newName, String newPassword, String newMobileNum, String newAddress) {
+    	return customerInfoDAO.changeCustomerInfo(customerID, newName, newPassword, newMobileNum, newAddress);
     }
     
     public boolean removeCustomer(UUID customerID) {

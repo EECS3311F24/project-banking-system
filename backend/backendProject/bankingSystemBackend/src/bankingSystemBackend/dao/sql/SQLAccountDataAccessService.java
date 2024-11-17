@@ -14,7 +14,7 @@ public class SQLAccountDataAccessService implements AccountDAO{ // unfinished
 	static String dbaccount = "383193_backend";
 	static String password = "BankSys3311";
 	@Override
-	public boolean insertAccount(UUID id, double amount) {
+	public boolean insertAccount(UUID id, String name, double amount) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException x){
@@ -26,7 +26,7 @@ public class SQLAccountDataAccessService implements AccountDAO{ // unfinished
 			Connection conn = DriverManager.getConnection("jdbc:mysql://" + dbLink, dbaccount, password);
 			Statement stmt = conn.createStatement();
 			
-			String sql = String.format("INSERT INTO Account VALUES (%s, %f)", id.toString(), amount);
+			String sql = String.format("INSERT INTO Account VALUES (%s, %f)", id.toString(), name, amount);
 			stmt.executeUpdate(sql);
 			return true;
 		} catch (SQLException ex) {
@@ -59,6 +59,12 @@ public class SQLAccountDataAccessService implements AccountDAO{ // unfinished
 
 	@Override
 	public void toggleLocked(UUID aID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void changeName(UUID aID, String newName) {
 		// TODO Auto-generated method stub
 		
 	}

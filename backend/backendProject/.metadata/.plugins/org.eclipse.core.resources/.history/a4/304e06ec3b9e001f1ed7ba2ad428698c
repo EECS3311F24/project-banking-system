@@ -1,5 +1,0 @@
-package bankingSystemBackend.dao;
-
-public class SQLAccountDataAccessService {
-
-}

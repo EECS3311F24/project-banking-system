@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.stream.Collectors;
 
 public class Utils {
@@ -12,5 +15,20 @@ public class Utils {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
             return br.lines().collect(Collectors.joining(System.lineSeparator()));
 	    }
+    }
+    
+    public static Connection getDBConnection() throws SQLException {
+    	String dbLink = "mysql-bankingsystem.alwaysdata.net";
+    	String dbaccount = "383193_backend";
+    	String password = "BankSys3311";
+    	
+    	try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException x){
+			System.out.println("Driver couldn't be loaded");
+			return null;
+		}
+    	
+    	return DriverManager.getConnection("jdbc:mysql://" + dbLink, dbaccount, password);
     }
 }
