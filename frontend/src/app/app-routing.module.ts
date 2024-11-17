@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ETransferComponent } from './e-transfer/e-transfer.component';
 
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: '', component: DashboardComponent },
       { path: 'deposit', component: DepositComponent },
       { path: 'withdraw', component: WithdrawComponent }, 
+      { path: 'e-transfer', component: ETransferComponent },
     ],
   },
 ];
