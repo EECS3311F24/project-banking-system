@@ -60,13 +60,7 @@ public class CustomerController {
 
 
 
-
-
-
-
-    @Autowired
-    private CustomerRepository customerRepository;
-
+    
     @Autowired
     private AccountRepository accountRepository;
 
