@@ -23,6 +23,8 @@ public class Customer {
     @Getter
     private String password;
     private String name;
+
+    @Column(unique = true, nullable = false) // Enforce uniqueness
     private String email;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)

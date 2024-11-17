@@ -8,6 +8,7 @@ import com.example.banking.model.Account; // Added for linking accounts
 import com.example.banking.model.Customer;
 import com.example.banking.repository.AccountRepository;
 import com.example.banking.repository.CustomerRepository;
+import com.example.banking.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,43 +25,46 @@ public class CustomerController {
     private CustomerRepository customerRepository;
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private CustomerService customerService; // REPLACED DIRECT REPOSITORY USAGE WITH SERVICE LAYER
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody CustomerRegistrationRequest request) {
-        // Check if the email already exists
-        if (customerRepository.findByEmail(request.getEmail()).isPresent()) {
-            return ResponseEntity.badRequest().body("Email is already registered");
+        try {
+            // ADDED: Use service to validate email uniqueness
+            customerService.validateEmailUniqueness(request.getEmail());
+
+            // MOVED: Registration logic to service layer
+            customerService.registerCustomer(request);
+
+            return ResponseEntity.status(201).body("Registration successful");
+        } catch (IllegalArgumentException e) {
+            // MODIFIED: Handle custom exceptions for duplicate emails
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            // ADDED: Generic exception handling
+            return ResponseEntity.status(500).body("An unexpected error occurred");
         }
-
-        // Create a new customer
-        Customer customer = new Customer();
-        customer.setName(request.getName());
-        customer.setEmail(request.getEmail());
-        customer.setPassword(passwordEncoder.encode(request.getPassword())); // Encrypt the password
-
-        customerRepository.save(customer);
-
-        return ResponseEntity.status(201).body("Registration successful");
     }
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody CustomerLoginRequest request) {
-        // Find the customer by email
-        Customer customer = customerRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("Invalid email or password"));
+        try {
+            // MOVED: Login logic to service layer
+            customerService.loginCustomer(request);
 
-        // Verify the password
-        if (!passwordEncoder.matches(request.getPassword(), customer.getPassword())) {
-            return ResponseEntity.status(401).body("Invalid email or password");
+            return ResponseEntity.ok("Login successful");
+        } catch (IllegalArgumentException e) {
+            // MODIFIED: Handle login errors with meaningful messages
+            return ResponseEntity.status(401).body(e.getMessage());
+        } catch (Exception e) {
+            // ADDED: Generic exception handling
+            return ResponseEntity.status(500).body("An unexpected error occurred");
         }
-
-        return ResponseEntity.ok("Login successful");
     }
 
 
 
-    
+
     @Autowired
     private AccountRepository accountRepository;
 
