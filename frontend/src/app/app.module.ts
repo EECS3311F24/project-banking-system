@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { WithdrawComponent } from './withdraw/withdraw.component';
 import { ETransferComponent } from './e-transfer/e-transfer.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ETransferComponent } from './e-transfer/e-transfer.component';
     MatToolbarModule,
     MatIconModule,
     MatListModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     provideAnimationsAsync()
