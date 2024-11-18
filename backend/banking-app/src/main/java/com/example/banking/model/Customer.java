@@ -19,12 +19,8 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Setter
-    @Getter
-    private String password;
-    private String name;
 
-    @Column(unique = true, nullable = false) // Enforce uniqueness
+    private String name;
     private String email;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)

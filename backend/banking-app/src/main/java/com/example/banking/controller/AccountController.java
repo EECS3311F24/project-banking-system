@@ -1,9 +1,6 @@
 package com.example.banking.controller;
 
-import com.example.banking.dto.DepositRequest;
-import com.example.banking.dto.OperationResponse;
-import com.example.banking.dto.TransactionResponse;
-import com.example.banking.dto.WithdrawRequest;
+import com.example.banking.dto.*;
 import com.example.banking.model.Account;
 import com.example.banking.model.Transaction;
 import com.example.banking.repository.AccountRepository;
@@ -34,7 +31,11 @@ public class AccountController {
         return ResponseEntity.ok(new OperationResponse("Withdrawal successful", updatedBalance));
     }
 
-
+    @PostMapping("/transfer")
+    public ResponseEntity<OperationResponse> transfer(@RequestBody TransferRequest request) {
+        bankingService.transfer(request.getFromAccountNumber(), request.getToAccountNumber(), request.getAmount());
+        return ResponseEntity.ok(new OperationResponse("Transfer successful", request.getAmount()));
+    }
 
     @Autowired
     private TransactionRepository transactionRepository;
