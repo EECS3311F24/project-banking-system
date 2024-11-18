@@ -8,6 +8,9 @@ import { DepositComponent } from './deposit/deposit.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { AuthGuard } from './auth.guard';  
 import { WithdrawComponent } from './withdraw/withdraw.component';
+import { TransactionsComponent } from './transactions/transactions.component';
+
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,6 +24,7 @@ const routes: Routes = [
       { path: 'deposit', component: DepositComponent },
       { path: 'withdraw', component: WithdrawComponent }, 
       { path: 'e-transfer', component: ETransferComponent },
+      { path: 'transactions', component: TransactionsComponent }
     ],
   },
 ];
