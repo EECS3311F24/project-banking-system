@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ETransferComponent } from './e-transfer/e-transfer.component';
-
+import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DepositComponent } from './deposit/deposit.component';
@@ -15,6 +15,7 @@ import { TransactionsComponent } from './transactions/transactions.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: 'sign-up', component: SignUpComponent }, // Added signup route
   {
     path: 'dashboard',
     component: MainLayoutComponent,

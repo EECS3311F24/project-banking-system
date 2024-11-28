@@ -1,26 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { BackendService } from '../services/backend.service'; // Adjust path as needed
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-transactions',
   templateUrl: './transactions.component.html',
-  styleUrl: './transactions.component.css'
+  styleUrls: ['./transactions.component.css']
 })
-export class TransactionsComponent {
-  displayedColumns: string[] = ['date', 'amount'];
-  transactions = [
-    { date: '2024-11-15', amount: '$200' },
-    { date: '2024-11-14', amount: '$500' },
-    { date: '2024-11-13', amount: '$150' }
-  ];
+export class TransactionsComponent implements OnInit {
+  displayedColumns: string[] = ['date', 'amount', 'description']; // Add necessary columns
+  transactions: any[] = [];
   dataSource = new MatTableDataSource(this.transactions);
 
-  constructor(private router: Router) {}
+  constructor(private backendService: BackendService) {}
 
-  navigateToDashboard(): void {
-    this.router.navigate(['/dashboard']); // Adjust route as needed
+  ngOnInit(): void {
+    const accountNumber = localStorage.getItem('accountNumber'); // Retrieve the account number from storage
+    if (accountNumber) {
+      this.backendService.getTransactionHistory(accountNumber).subscribe({
+        next: (response) => {
+          console.log('Transaction History:', response);
+          this.transactions = response; // Bind response to transactions
+          this.dataSource.data = this.transactions; // Update Material Table data source
+        },
+        error: (err) => {
+          console.error('Error fetching transaction history:', err);
+        }
+      });
+    }
   }
-  
-
 }

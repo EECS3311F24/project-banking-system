@@ -23,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MatTableModule } from '@angular/material/table';
     DepositComponent,
     WithdrawComponent,
     ETransferComponent,
-    TransactionsComponent
+    TransactionsComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,

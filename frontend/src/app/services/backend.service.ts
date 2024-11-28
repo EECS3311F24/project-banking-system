@@ -11,6 +11,13 @@ export class BackendService {
 
   constructor(private http: HttpClient) { }
 
+  signup(user: { name: string; email: string; password: string }) {
+    return this.http.post<{ accountNumber: string; balance: number }>(
+      `${this.baseUrl}/addUser`,
+      user
+    );
+  }
+
   login(email: string, password: string): Observable<{ 
     message: string; 
     name: string; 
@@ -45,6 +52,14 @@ export class BackendService {
   transferFunds(transferData: { fromEmail: string; toEmail: string; amount: number }) {
     return this.http.post(`${this.baseUrl}/transfer`, transferData, { responseType: 'text' });
   }
+  getRecentTransaction(accountNumber: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/recentTransaction/${accountNumber}`);
+  }
+
+  getTransactionHistory(accountNumber: string) {
+    return this.http.get<any[]>(`${this.baseUrl}/transactionHistory/${accountNumber}`);
+  }
+  
   
 
 }

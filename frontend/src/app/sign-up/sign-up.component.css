@@ -1,0 +1,71 @@
+/* Container styling */
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7f7f7;
+    margin: 0;
+  }
+  
+  /* Card styling */
+  .signup-card {
+    width: 400px;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    text-align: center;
+  }
+  
+  /* Header styles */
+  .signup-card h2 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #000;
+  }
+  
+  .signup-card h2 span {
+    color: #6b46c1; /* Match the highlight color from E-Banking */
+  }
+  
+  /* Form field styles */
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Button styles */
+  button {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #6b46c1;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #553c9a;
+  }
+  
+  /* Links */
+  .extra-links {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .extra-links a {
+    text-decoration: none;
+    color: #6b46c1;
+  }
+  
+  .extra-links a:hover {
+    text-decoration: underline;
+  }
+  

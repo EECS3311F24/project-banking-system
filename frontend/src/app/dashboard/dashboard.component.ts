@@ -9,6 +9,7 @@ import { BackendService } from '../services/backend.service';
 export class DashboardComponent implements OnInit{
   accountNumber: string = '';
   balance: number = 0.0;
+  recentTransaction: { description: string; amount: number; timestamp: string } | null = null;
 
   constructor(private backendService: BackendService) {} 
 
@@ -28,6 +29,21 @@ export class DashboardComponent implements OnInit{
         }
       });
     }
+
+    this.backendService.getRecentTransaction(accountNumber).subscribe({
+      next: (transaction) => {
+        console.log('Recent Transaction:', transaction);
+        this.recentTransaction = {
+          description: transaction.description,
+          amount: transaction.amount,
+          timestamp: transaction.timestamp
+        };
+      },
+      error: (err) => {
+        console.error('Error fetching recent transaction:', err);
+      }
+    });
   }
+  
 
 }
