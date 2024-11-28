@@ -9,15 +9,15 @@
         </mat-list-item>
         <mat-list-item routerLink="/dashboard/deposit">
           <mat-icon>download</mat-icon>
-          <span>Deposit</span>
+          <span> Deposit</span>
         </mat-list-item>
         <mat-list-item routerLink="/dashboard/withdraw">
           <mat-icon>upload</mat-icon>
-          <span>Withdraw</span>
+          <span> Withdraw</span>
         </mat-list-item>
         <mat-list-item routerLink="/dashboard/e-transfer">
           <mat-icon>send</mat-icon>
-          <span>Send</span>
+          <span> Send</span>
         </mat-list-item>
         <mat-list-item routerLink="/bank-card">
           <mat-icon>credit_card</mat-icon>
@@ -25,15 +25,15 @@
         </mat-list-item>
         <mat-list-item routerLink="/dashboard/transactions">
           <mat-icon>receipt</mat-icon>
-          <span>Transactions</span>
+          <span> Transactions</span>
         </mat-list-item>
         <mat-list-item routerLink="/settings">
           <mat-icon>settings</mat-icon>
-          <span>Settings</span>
+          <span> Settings</span>
         </mat-list-item>
         <mat-list-item routerLink="/contact">
           <mat-icon>contact_support</mat-icon>
-          <span>Contact Us</span>
+          <span> Contact Us</span>
         </mat-list-item>
       </mat-nav-list>
     </mat-sidenav>
@@ -44,7 +44,7 @@
           <span>Welcome to Dashboard</span>
         </ng-container>
         <span class="spacer"></span>
-        <span>Hello, User</span>
+        <span>Hello, {{ userName }}</span>
         <div class="logout-container" (click)="onLogout()">
           <mat-icon class="logout-icon">logout</mat-icon>
         </div>

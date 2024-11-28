@@ -1,19 +1,23 @@
 <div class="dashboard-content">
-    <mat-card class="card">
-      <h4>E-Transfer</h4>
-      <form>
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Account Name</mat-label>
-          <input matInput type="text" placeholder="Enter Account Number" />
-        </mat-form-field>
-  
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Amount</mat-label>
-          <input matInput type="number" placeholder="Enter Amount" />
-        </mat-form-field>
-  
-        <button mat-raised-button color="primary" >Transfer Now</button>
-      </form>
-    </mat-card>
-  </div>
-  
+  <mat-card class="card">
+    <h4>E-Transfer</h4>
+    <form [formGroup]="transferForm" (ngSubmit)="onTransfer()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Sender's Email</mat-label>
+        <input matInput formControlName="fromEmail" type="email" placeholder="Enter sender's email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Receiver's Email</mat-label>
+        <input matInput formControlName="toEmail" type="email" placeholder="Enter receiver's email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Amount</mat-label>
+        <input matInput formControlName="amount" type="number" placeholder="Enter Amount" />
+      </mat-form-field>
+
+      <button mat-raised-button color="primary">Transfer Now</button>
+    </form>
+  </mat-card>
+</div>

@@ -30,4 +30,5 @@ public class Users {
     private String accountNumber;
     @Column(nullable = false)
     private double balance = 0.0;
+
 }

@@ -12,7 +12,9 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class UsersController {
@@ -30,16 +32,39 @@ public class UsersController {
                     .body(null); // Better error handling could include a custom error object
         }
     }
+    @GetMapping("/account/balance/{accountNumber}")
+    public ResponseEntity<Map<String, Object>> getAccountDetails(@PathVariable String accountNumber) {
+        try {
+            Users user = userService.getUserByAccountNumber(accountNumber);
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("accountNumber", user.getAccountNumber());
+            response.put("balance", user.getBalance());
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login( @RequestBody LoginRequest loginRequest) {
+    @CrossOrigin(origins = "http://localhost:4200")
+    public ResponseEntity<Map<String, Object>> login( @RequestBody LoginRequest loginRequest) {
         try {
-            userService.login(loginRequest); // Assuming exceptions are thrown for invalid login
-            return ResponseEntity.ok("Login successful!");
+           Users user =  userService.login(loginRequest); // Assuming exceptions are thrown for invalid login
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Login successful");
+            response.put("name", user.getName());
+            response.put("accountNumber", user.getAccountNumber());
+            response.put("balance", user.getBalance());
+            return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", e.getMessage()));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred during login");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "An error occurred during login"));
         }
     }
     @PostMapping("/deposit")
@@ -88,5 +113,6 @@ public class UsersController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+
 
 }

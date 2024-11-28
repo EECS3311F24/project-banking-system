@@ -1,15 +1,15 @@
 <div class="dashboard-content">
     <mat-card class="card">
       <h4>Bank Withdraw</h4>
-      <form>
+      <form [formGroup]="withdrawForm" (ngSubmit)="onWithdraw()">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Account Number</mat-label>
-          <input matInput type="text" placeholder="Enter Account Number" />
+          <input formControlName="accountNumber" matInput type="text" placeholder=" Enter Account Number " />
         </mat-form-field>
   
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Amount</mat-label>
-          <input matInput type="number" placeholder="Enter Amount" />
+          <input formControlName="amount" matInput type="number" placeholder=" Enter Amount" />
         </mat-form-field>
   
         <button mat-raised-button color="primary">Withdraw Now</button>

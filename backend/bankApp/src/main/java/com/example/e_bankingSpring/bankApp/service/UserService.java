@@ -7,6 +7,7 @@ import com.example.e_bankingSpring.bankApp.repository.UsersRepo;
 import com.example.e_bankingSpring.bankApp.request.LoginRequest;
 import com.example.e_bankingSpring.bankApp.request.TransactionRequest;
 import com.example.e_bankingSpring.bankApp.request.TransferRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 
 @Service
+@Transactional
 public class UserService {
 
     @Autowired
@@ -22,6 +24,7 @@ public class UserService {
 
     @Autowired
     private TransactionRepo transactionRepo;
+
     public Users addUser(Users user) {
         String accountNumber = generateAccountNumber();
         user.setAccountNumber(accountNumber);
@@ -39,13 +42,14 @@ public class UserService {
         return accountNumber;
     }
 
-    public void login(LoginRequest loginRequest) throws IllegalArgumentException {
+    public Users login(LoginRequest loginRequest) throws IllegalArgumentException {
         Users user = usersRepo.findById(loginRequest.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         if (!user.getPassword().equals(loginRequest.getPassword())) {
             throw new IllegalArgumentException("Invalid credentials");
         }
+        return user;
     }
     public Users deposit(TransactionRequest transactionRequest) {
         Users user = (Users) usersRepo.findByAccountNumber(transactionRequest.getAccountNumber())
@@ -126,5 +130,10 @@ public class UserService {
 
     public List<Transaction> getTransactionHistory(String accountNumber) {
         return transactionRepo.findByAccountNumberOrderByTimestampDesc(accountNumber);
+    }
+
+    public Users getUserByAccountNumber(String accountNumber) {
+        return (Users) usersRepo.findByAccountNumber(accountNumber)
+                .orElseThrow(() -> new IllegalArgumentException("Account not found"));
     }
 }

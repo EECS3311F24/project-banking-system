@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
@@ -6,25 +6,27 @@ import { Router, NavigationEnd } from '@angular/router';
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.css'
 })
-export class MainLayoutComponent {
+export class MainLayoutComponent implements OnInit{
   isDashboard: boolean = true;
   isLoginPage: boolean = false;
+  userName: string = '';
 
   constructor(private router: Router) {}
 
-  ngOnInit() {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        // Update isDashboard only for dashboard route
-        this.isDashboard = event.urlAfterRedirects === '/dashboard';
+  ngOnInit(): void {
+    // this.router.events.subscribe((event) => {
+    //   if (event instanceof NavigationEnd) {
+    //     // Update isDashboard only for dashboard route
+    //     this.isDashboard = event.urlAfterRedirects === '/dashboard';
 
-        // Check if the current route is '/login' for login page display control
-        this.isLoginPage = event.urlAfterRedirects === '/login';
-      }
-    });
+    //     // Check if the current route is '/login' for login page display control
+    //     this.isLoginPage = event.urlAfterRedirects === '/login';
+    //   }
+    // });
+    this.userName = localStorage.getItem('userName') || 'User';
   }
-  onLogout() {
-    // Navigate to login page on logout
+  onLogout(): void {
+    localStorage.removeItem('userName');
     this.router.navigate(['/login']);
   }
 }

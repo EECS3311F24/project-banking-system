@@ -1,15 +1,15 @@
 <div class="dashboard-content">
     <mat-card class="card">
       <h4>Bank Deposit</h4>
-      <form>
+      <form [formGroup]="depositForm" (ngSubmit)="onDeposit()">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Account Number</mat-label>
-          <input matInput type="text" placeholder="Enter Account Number" />
+          <input matInput formControlName="accountNumber" matInput type="text"  placeholder="Enter Account Number" />
         </mat-form-field>
   
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Amount</mat-label>
-          <input matInput type="number" placeholder="Enter Amount" />
+          <input matInput formControlName="amount" matInput type="number" placeholder=" Enter Amount ($)" />
         </mat-form-field>
   
         <button mat-raised-button color="primary" >Deposit Now</button>

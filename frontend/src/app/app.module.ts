@@ -13,6 +13,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 // import { WithdrawComponent } from './withdraw/withdraw.component';
 // import { ETransferComponent } from './e-transfer/e-transfer.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
@@ -45,7 +46,8 @@ import { MatTableModule } from '@angular/material/table';
     MatListModule,
     FormsModule,
     HttpClientModule,
-    MatTableModule
+    MatTableModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideAnimationsAsync()
