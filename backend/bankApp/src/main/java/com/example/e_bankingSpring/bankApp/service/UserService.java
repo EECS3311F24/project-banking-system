@@ -136,4 +136,9 @@ public class UserService {
         return (Users) usersRepo.findByAccountNumber(accountNumber)
                 .orElseThrow(() -> new IllegalArgumentException("Account not found"));
     }
+
+    public Transaction getRecentTransaction(String accountNumber) {
+        return transactionRepo.findFirstByAccountNumberOrderByTimestampDesc(accountNumber)
+                .orElseThrow(() -> new IllegalArgumentException("No transactions found for account number: " + accountNumber));
+    }
 }

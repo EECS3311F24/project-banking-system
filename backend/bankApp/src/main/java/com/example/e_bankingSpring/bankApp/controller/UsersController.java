@@ -114,5 +114,15 @@ public class UsersController {
         }
     }
 
+    @GetMapping("/recentTransaction/{accountNumber}")
+    public ResponseEntity<Transaction> getRecentTransaction(@PathVariable String accountNumber) {
+        try {
+            Transaction recentTransaction = userService.getRecentTransaction(accountNumber);
+            return ResponseEntity.ok(recentTransaction);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Handle no transactions found
+        }
+    }
+
 
 }
