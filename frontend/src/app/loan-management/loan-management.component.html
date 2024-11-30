@@ -1,0 +1,33 @@
+<div class="loan-container">
+    <mat-card class="loan-card">
+      <h4>Loan Eligibility</h4>
+      <form (ngSubmit)="checkLoanEligibility()">
+        <mat-form-field appearance="outline">
+          <mat-label>Monthly Debts</mat-label>
+          <input matInput type="number" [(ngModel)]="monthlyDebts" name="debts" required />
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Monthly Income</mat-label>
+          <input matInput type="number" [(ngModel)]="monthlyIncome" name="income" required />
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Credit Score</mat-label>
+          <input matInput type="number" [(ngModel)]="creditScore" name="credit" required />
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline">
+          <mat-label>Account Number</mat-label>
+          <input matInput type="text" [(ngModel)]="accountNumber" name="accountNumber" required />
+        </mat-form-field>
+  
+        <button mat-raised-button color="primary" type="submit">Check Eligibility</button>
+      </form>
+      
+      <div *ngIf="loanResult" class="result">
+        <p>{{ loanResult }}</p>
+      </div>
+    </mat-card>
+  </div>
+  

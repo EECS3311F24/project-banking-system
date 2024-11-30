@@ -19,21 +19,17 @@
           <mat-icon>send</mat-icon>
           <span> Send</span>
         </mat-list-item>
-        <mat-list-item routerLink="/bank-card">
-          <mat-icon>credit_card</mat-icon>
-          <span>Bank Card</span>
-        </mat-list-item>
         <mat-list-item routerLink="/dashboard/transactions">
           <mat-icon>receipt</mat-icon>
           <span> Transactions</span>
         </mat-list-item>
+        <mat-list-item routerLink="/dashboard/loan-management">
+          <mat-icon>calculate</mat-icon>
+          <span>Loan</span>
+        </mat-list-item>
         <mat-list-item routerLink="/settings">
           <mat-icon>settings</mat-icon>
           <span> Settings</span>
-        </mat-list-item>
-        <mat-list-item routerLink="/contact">
-          <mat-icon>contact_support</mat-icon>
-          <span> Contact Us</span>
         </mat-list-item>
       </mat-nav-list>
     </mat-sidenav>
@@ -41,10 +37,10 @@
     <mat-sidenav-content>
       <mat-toolbar color="primary" class="toolbar">
         <ng-container *ngIf="isDashboard">
-          <span>Welcome to Dashboard</span>
+          <span><span>{{ currentTitle }}</span></span>
         </ng-container>
         <span class="spacer"></span>
-        <span>Hello, {{ userName }}</span>
+        <span>Hello, {{ userName }} !</span>
         <div class="logout-container" (click)="onLogout()">
           <mat-icon class="logout-icon">logout</mat-icon>
         </div>

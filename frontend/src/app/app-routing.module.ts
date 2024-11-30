@@ -9,8 +9,7 @@ import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { AuthGuard } from './auth.guard';  
 import { WithdrawComponent } from './withdraw/withdraw.component';
 import { TransactionsComponent } from './transactions/transactions.component';
-
-
+import { LoanManagementComponent } from './loan-management/loan-management.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -25,7 +24,8 @@ const routes: Routes = [
       { path: 'deposit', component: DepositComponent },
       { path: 'withdraw', component: WithdrawComponent }, 
       { path: 'e-transfer', component: ETransferComponent },
-      { path: 'transactions', component: TransactionsComponent }
+      { path: 'transactions', component: TransactionsComponent },
+      { path: 'loan-management', component: LoanManagementComponent },
     ],
   },
 ];

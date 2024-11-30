@@ -24,6 +24,12 @@ import { TransactionsComponent } from './transactions/transactions.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { LoanManagementComponent } from './loan-management/loan-management.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +41,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     WithdrawComponent,
     ETransferComponent,
     TransactionsComponent,
-    SignUpComponent
+    SignUpComponent,
+    LoanManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +56,12 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     FormsModule,
     HttpClientModule,
     MatTableModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule
   ],
   providers: [
     provideAnimationsAsync()
