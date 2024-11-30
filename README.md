@@ -16,7 +16,7 @@ To develop on this project, you currently need the following:
 To run the backend, you have to do the following:
 1) clone the repo
 2) Open Eclipse with the path folder <code>backend/bankApp</code>
-3) To run backend, run the <code>backend.java</code> file
+3) To run backend, run the <code>BankAppApplication.java</code> file
 
 ## Contribution
 We have the three main branches:
