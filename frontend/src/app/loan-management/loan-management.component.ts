@@ -21,15 +21,10 @@ export class LoanManagementComponent {
         const { balance } = response;
         const dtiRatio = (this.monthlyDebts / this.monthlyIncome) * 100; // Calculate DTI ratio
 
-        if (dtiRatio < 40 && this.creditScore >= 600 && balance >= 5000) {
+        if (dtiRatio < 40 && this.creditScore >= 600 && balance >= 2000) {
           // Case 1: DTI < 40, decent credit score, and sufficient balance
           this.loanResult = 'You are eligible for a loan!';
-        } else if (
-          dtiRatio >= 40 &&
-          dtiRatio <= 50 &&
-          this.creditScore >= 750 &&
-          balance >= 10000
-        ) {
+        } else if (dtiRatio >= 40 && dtiRatio <= 50 && this.creditScore >= 750 && balance >= 10000) {
           // Case 2: DTI between 40-50, high credit score, and high balance
           this.loanResult = 'You are eligible for a loan!';
         } else {
