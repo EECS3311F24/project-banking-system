@@ -10,13 +10,20 @@ This project aims to simplify financial management by creating a user-friendly b
 To develop on this project, you currently need the following:
 - NodeJS (installation of other dependencies)
 - Angular CLI
-- Java (1.8)
-- Eclipse
+- Java 23
+- IntelliJ
+- VSCode
 
-To run the backend, you have to do the following:
-1) clone the repo
-2) Open Eclipse with the path folder <code>backend/bankApp</code>
-3) To run backend, run the <code>BankAppApplication.java</code> file
+First, clone the repository.
+
+To run the backend:
+- Open IntelliJ with the path folder backend/bankApp
+- To run the backend, run the <code>BankAppApplication.java</code>
+
+To run the frontend:
+- Open VScode with path folder frontend
+- Run <code>npm install</code> in the terminal
+- Run <code>ng serve</code> in the terminal
 
 ## Contribution
 We have the three main branches:
