@@ -1,3 +1,4 @@
+
 package com.example.e_bankingSpring.bankApp.entity;
 
 import jakarta.persistence.Column;

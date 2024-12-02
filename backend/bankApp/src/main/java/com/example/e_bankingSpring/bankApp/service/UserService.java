@@ -115,7 +115,7 @@ public class UserService {
         senderTransaction.setType("Transfer");
         senderTransaction.setAmount(-transferRequest.getAmount());
         senderTransaction.setTimestamp(LocalDateTime.now());
-        senderTransaction.setDescription("Transferred to " + receiver.getAccountNumber());
+        senderTransaction.setDescription("Transferred to " + receiver.getName());
         transactionRepo.save(senderTransaction);
 
         // Log the transaction for receiver
@@ -124,7 +124,7 @@ public class UserService {
         receiverTransaction.setType("Transfer");
         receiverTransaction.setAmount(transferRequest.getAmount());
         receiverTransaction.setTimestamp(LocalDateTime.now());
-        receiverTransaction.setDescription("Received from " + sender.getAccountNumber());
+        receiverTransaction.setDescription("Received from " + sender.getName());
         transactionRepo.save(receiverTransaction);
     }
 

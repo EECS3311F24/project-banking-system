@@ -18,7 +18,6 @@ import lombok.Setter;
 public class Users {
 
 
-
     @Column
     private String name;
     @Id

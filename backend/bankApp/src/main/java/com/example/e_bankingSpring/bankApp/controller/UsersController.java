@@ -1,3 +1,4 @@
+
 package com.example.e_bankingSpring.bankApp.controller;
 
 import com.example.e_bankingSpring.bankApp.entity.Transaction;
@@ -53,7 +54,7 @@ public class UsersController {
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Map<String, Object>> login( @RequestBody LoginRequest loginRequest) {
         try {
-           Users user =  userService.login(loginRequest); // Assuming exceptions are thrown for invalid login
+            Users user =  userService.login(loginRequest); // Assuming exceptions are thrown for invalid login
             Map<String, Object> response = new HashMap<>();
             response.put("message", "Login successful");
             response.put("name", user.getName());
