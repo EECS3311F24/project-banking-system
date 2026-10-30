@@ -1,0 +1,5 @@
+package bankingSystemBackend.dao.local;
+
+public class LocalTransactionDataAccessService {
+
+}

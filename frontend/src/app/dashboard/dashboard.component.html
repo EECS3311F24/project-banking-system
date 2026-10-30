@@ -1,0 +1,17 @@
+<div class="dashboard-content">
+  <mat-card class="balance-card">
+    <h4>Account Number</h4>
+    <p>{{ accountNumber }}</p>
+    <h4>Available Balance</h4>
+    <p>$ {{ balance | number:'1.2-2' }}</p>
+  </mat-card>
+  <mat-card class="activity-card">
+    <h4>Recent Activity</h4>
+    <p *ngIf="recentTransaction">
+      {{ recentTransaction.description }} <br />
+      Amount: {{ recentTransaction.amount | currency }} <br />
+      Date: {{ recentTransaction.timestamp | date: 'short' }}
+    </p>
+    <p *ngIf="!recentTransaction">No recent activity</p>
+  </mat-card>
+</div>

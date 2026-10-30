@@ -1,0 +1,109 @@
+.transactions-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Ensures full-page centering */
+    padding: 1rem;
+  }
+  
+  .transactions-card {
+    width: 80%; /* Adjust card width */
+    max-width: 800px;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .transactions-card h4 {
+    margin-bottom: 1.5rem;
+    color: #6200ea;
+    text-align: center;
+  }
+  
+  .table {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    border-collapse: collapse;
+  }
+  
+  .table th,
+  .table td {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #6200ea;
+    color: white;
+  }
+  
+  .table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  button {
+    display: block;
+    margin: 0 auto;
+  }
+  .transactions-container {
+    padding: 2rem;
+    overflow-x: auto;
+  }
+  
+  .transactions-card {
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%; /* Ensure the card doesn't exceed its container */
+  overflow-x: auto;
+  }
+  
+  .table-container {
+    overflow-x: auto; /* Enable horizontal scroll */
+    max-width: 100%; /* Prevent the table from overflowing the container */
+  }
+  
+  table {
+    width: 100%; /* Ensure the table takes up the full width of the container */
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+  
+  mat-header-cell, mat-cell {
+    padding: 1rem;
+  }
+  
+  mat-header-cell {
+    font-weight: bold;
+    text-align: left;
+  }
+  
+  mat-cell {
+    text-align: left;
+  }
+  
+  button {
+    margin-top: 1rem;
+  }
+
+  th, td {
+    padding: 1rem;
+    text-align: left;
+    word-wrap: break-word; 
+  }
+  
+  th {
+    background-color: #f3f3f3;
+    font-weight: bold;
+  }
+  
+  td {
+    background-color: #fff;
+  }
+  

@@ -1,0 +1,73 @@
+package bankingSystemBackend.dao.local;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import bankingSystemBackend.dao.daos.AccountDAO;
+import bankingSystemBackend.model.Account;
+
+// note that any 'ON DELETE' condition does not work properly in this implementation
+
+public class LocalAccountDataAccessService implements AccountDAO{
+	
+	private static List<Account> accountDB = new ArrayList<>();
+
+	@Override
+	public boolean insertAccount(UUID id, String name, double amount) {
+		return accountDB.add(new Account(id, name, amount, false));
+	}
+
+
+	@Override
+	public Account getAccountFromID(UUID aID) {
+		for (Account a : accountDB) {
+			if (a.getAccountID().equals(aID))
+				return a;
+		}
+		
+		return null;
+	}
+
+	@Override
+	public boolean changeBalance(UUID aID, String typeOfTransaction, double amount) {
+		Account account = getAccountFromID(aID);
+		
+		if (account == null) return false;
+		
+		if (typeOfTransaction.equals("deposit")) {
+			account.setAccountBalance(account.getAccountBalance() + amount);
+			
+			return true;
+		} 
+		
+		else if (typeOfTransaction.equals("withdraw")) {
+			account.setAccountBalance(account.getAccountBalance() - amount);
+			return true;
+		} 
+		
+		return false;
+	}
+
+
+	@Override
+	public boolean removeAccount(UUID aID) {
+		boolean removed = accountDB.removeIf(connection -> (connection.getAccountID().equals(aID)));
+		
+		return removed;
+	}
+
+
+	@Override
+	public void toggleLocked(UUID aID) {
+		Account account = getAccountFromID(aID);
+		account.toggleLock();
+	}
+
+
+	@Override
+	public void changeName(UUID aID, String newName) {
+		Account account = getAccountFromID(aID);
+		account.setAccountName(newName);
+	}
+}

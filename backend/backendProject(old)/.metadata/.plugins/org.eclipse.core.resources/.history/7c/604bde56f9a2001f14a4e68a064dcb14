@@ -1,0 +1,97 @@
+package bankingSystemBackend.api;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+import bankingSystemBackend.service.AccountOwnersService;
+import bankingSystemBackend.utils.Utils;
+
+public class AccountOwnersController implements HttpHandler{
+
+	private static AccountOwnersService accountOwnersService;
+	
+	@Override
+	public void handle(HttpExchange r){
+        try {
+            if (r.getRequestMethod().equals("POST")){
+                handlePost(r);
+            } else if (r.getRequestMethod().equals("GET")){ 
+                handleGet(r);
+            } else if (r.getRequestMethod().equals("PUT")){
+                handlePut(r);
+            } else if (r.getRequestMethod().equals("DELETE")){
+                handleDelete(r);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+	private void handlePost(HttpExchange exchange) throws IOException, JSONException {
+		String body = Utils.convert(exchange.getRequestBody());
+        JSONObject deserialized = new JSONObject(body);
+        
+        if (!deserialized.has("accountID") || !deserialized.has("customerID")) {
+        	exchange.sendResponseHeaders(400, -1);
+        	return;
+        }
+		
+        // do assign customer to existing account
+        if (accountOwnersService.insertAccountConnection(
+        	UUID.fromString(deserialized.getString("accountID")), 
+        	UUID.fromString(deserialized.getString("customerID")))) 
+        {
+        	exchange.sendResponseHeaders(200, -1);
+        	return;
+        }
+        	 
+        exchange.sendResponseHeaders(400, -1);
+	}
+
+	private void handleGet(HttpExchange exchange) throws IOException, JSONException {
+		String body = Utils.convert(exchange.getRequestBody());
+        JSONObject deserialized = new JSONObject(body);
+        String response = "";
+        
+        if (deserialized.has("customerID")) { // move to AccountOwnersController
+        	List<UUID> ids = accountOwnersService.getAccountIDsFromCustomerID(UUID.fromString(deserialized.getString("customerID")));
+        	
+        	List<JSONObject> jsonList = new ArrayList<>();
+        	for(UUID id : ids) {
+        		jsonList.add(new JSONObject().put("accountID", id));
+        	}
+        	
+        	response = jsonList.toString();
+        	
+        } else if (deserialized.has("accountID")) { // move to AccountOwnersController
+        	List<UUID> ids = accountOwnersService.getCustomerIDsFromAccountID(UUID.fromString(deserialized.getString("accountID")));
+        	
+        	List<JSONObject> jsonList = new ArrayList<>();
+        	for(UUID id : ids) {
+        		jsonList.add(new JSONObject().put("customerID", id));
+        	}
+        	response = jsonList.toString();
+        	
+        } 
+		
+	}
+
+	private void handlePut(HttpExchange r) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void handleDelete(HttpExchange r) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

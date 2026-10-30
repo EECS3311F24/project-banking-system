@@ -1,0 +1,89 @@
+package bankingSystemBackend.api;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+import bankingSystemBackend.model.Transaction;
+import bankingSystemBackend.service.TransactionService;
+import bankingSystemBackend.utils.Utils;
+
+public class TransactionController implements HttpHandler{
+	private static TransactionService transactionService;
+	
+	public TransactionController(TransactionService transactionService) {
+		this.transactionService = transactionService;
+	}
+	
+	@Override
+	public void handle(HttpExchange r){ // no put or delete request
+        try {
+            if (r.getRequestMethod().equals("POST")){
+                handlePost(r);
+            } else if (r.getRequestMethod().equals("GET")){ 
+                handleGet(r);
+            } 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+	private void handlePost(HttpExchange exchange) throws IOException, JSONException {
+		String body = Utils.convert(exchange.getRequestBody());
+        JSONObject deserialized = new JSONObject(body);
+        
+        if (!deserialized.has("accountID") || !deserialized.has("transactionType") || !deserialized.has("amount")) {
+        	exchange.sendResponseHeaders(400, -1);
+        	return;
+        }
+        
+        if (transactionService.insertTransaction(
+        		UUID.fromString(deserialized.getString("accountID")), 
+        		deserialized.getString("transactionType"), 
+        		deserialized.getDouble("amount"))
+        ) {
+        	exchange.sendResponseHeaders(200, -1);
+        	return;
+        }
+        exchange.sendResponseHeaders(400, -1);
+	}
+
+	private void handleGet(HttpExchange exchange) {
+		String body = Utils.convert(exchange.getRequestBody());
+        JSONObject deserialized = new JSONObject(body);
+        String response = "";
+		
+        if (!deserialized.has("accountID")) {
+        	exchange.sendResponseHeaders(400, -1);
+        	return;
+        }
+        
+		if (deserialized.has("accountID")) { // move to TransactionsController
+        	List<Transaction> transactions = accountService.getTransactionsFromAccountID(UUID.fromString(deserialized.getString("accountID")));
+        	
+        	List<JSONObject> jsonList = new ArrayList<>();
+        	for(Transaction transaction : transactions) {
+        		jsonList.add(new JSONObject()
+        				.put("accountID", transaction.getAID())
+        				.put("transactionType", transaction.getTransactionType())
+        				.put("amount", transaction.getAmount())
+        				.put("date", transaction.getDate()));
+        	}
+        	response = jsonList.toString();
+        }
+		
+		exchange.sendResponseHeaders(200, response.length());
+    	OutputStream os = exchange.getResponseBody();
+    	os.write(response.getBytes());
+    	os.close();
+		
+	}
+}

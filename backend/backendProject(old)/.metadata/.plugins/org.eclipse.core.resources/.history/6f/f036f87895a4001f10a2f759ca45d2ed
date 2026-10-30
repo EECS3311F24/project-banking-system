@@ -1,0 +1,23 @@
+package bankingSystemBackend.dao.daos;
+
+import java.util.List;
+import java.util.UUID;
+
+import bankingSystemBackend.model.CustomerInfo;
+
+public interface CustomerInfoDAO {
+    boolean insertCustomerInfo(UUID id, CustomerInfo customer);
+    
+    CustomerInfo getCustomerInfoFromMailAndPass(String mail, String pass);
+    
+    CustomerInfo getCustomerInfoFromID(UUID customerID);
+
+    boolean changeCustomerInfo(UUID customerID, String newName, String newPassword, String newMobileNumber, String newAddress);
+    
+    boolean removeCustomer(UUID customerID);
+
+    default boolean addCustomerInfo(CustomerInfo customer){
+        UUID id = UUID.randomUUID();
+        return insertCustomerInfo(id, customer);
+    }
+}

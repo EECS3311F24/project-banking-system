@@ -1,0 +1,36 @@
+package bankingSystemBackend.api;
+
+import org.json.JSONObject;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+import bankingSystemBackend.utils.Utils;
+
+public class TransactionController implements HttpHandler{
+	
+	@Override
+	public void handle(HttpExchange r){ // no put or delete request
+        try {
+            if (r.getRequestMethod().equals("POST")){
+                handlePost(r);
+            } else if (r.getRequestMethod().equals("GET")){ 
+                handleGet(r);
+            } 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+	private void handlePost(HttpExchange exchange) {
+		String body = Utils.convert(exchange.getRequestBody());
+        JSONObject deserialized = new JSONObject(body);
+        
+		
+	}
+
+	private void handleGet(HttpExchange r) {
+		// TODO Auto-generated method stub
+		
+	}
+}

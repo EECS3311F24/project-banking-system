@@ -1,0 +1,28 @@
+package bankingSystemBackend.dao.local;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import bankingSystemBackend.dao.daos.TransactionDAO;
+import bankingSystemBackend.model.Transaction;
+
+public class LocalTransactionDataAccessService implements TransactionDAO{
+	List<Transaction> DB = new ArrayList<>();
+	
+	@Override
+	public boolean insertTransaction(UUID aID, String transactionType, double amount) {
+		return DB.add(new Transaction(aID, transactionType, amount));
+	}
+
+	@Override
+	public List<Transaction> getTransactionsFromAccountID(UUID aID) {
+		List<Transaction> associatedToAccount = new ArrayList<>();
+		for (Transaction transaction : DB) {
+			if (transaction.getAID().equals(aID)) associatedToAccount.add(transaction);
+		}
+		
+		return associatedToAccount;
+	}
+
+}

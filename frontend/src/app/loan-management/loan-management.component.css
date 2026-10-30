@@ -1,0 +1,27 @@
+.loan-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  .loan-card {
+    padding: 2rem;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+  }
+  
+  .mat-form-field {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .result {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: green;
+  }
+  

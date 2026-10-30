@@ -1,0 +1,49 @@
+package bankingSystemBackend.dao;
+
+import java.util.List;
+import java.util.UUID;
+
+import bankingSystemBackend.model.CustomerInfo;
+
+public class SQLCustomerInfoDataAccessService implements CustomerInfoDAO{
+	static String dbLink = "mysql-bankingsystem.alwaysdata.net";
+	static String dbaccount = "383193_backend";
+	static String password = "BankSys3311";
+	
+	@Override
+	public boolean insertCustomerInfo(UUID id, CustomerInfo customer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<CustomerInfo> getAllCustomerInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CustomerInfo getCustomerInfoFromMailAndPass(String mail, String pass) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CustomerInfo getCustomerInfoFromID(UUID customerID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean changeCustomerInfo(UUID customerID, String newPassword, String newMobileNumber, String newAddress) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean removeCustomer(UUID customerID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}
